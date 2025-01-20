@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,13 +28,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
+
 # SECRET_KEY = 'django-insecure-=fooya_i(jg4(xcq0-71!67%a=3q38inmnn(98o(*2uha*in5_'
+SECRET_KEY = config('SECRET_KEY')
 
 
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -89,11 +93,21 @@ WSGI_APPLICATION = 'websachnoi.wsgi.application'
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'defaultdb',  # Tên cơ sở dữ liệu của bạn
 #         'USER': 'avnadmin',  # Tên người dùng MySQL
-#         # 'PASSWORD': 'AVNS_Xo7hEecALufhRtngeQP',  # Mật khẩu MySQL
+#         'PASSWORD': 'AVNS_Xo7hEecALufhRtngeQP',  # Mật khẩu MySQL
 #         'HOST': 'mysql-4c55101-minhtrivo2005gg-b6de.c.aivencloud.com',  # Địa chỉ máy chủ MySQL (localhost nếu đang chạy trên máy tính cục bộ)
 #         'PORT': '26715',  # Cổng của MySQL (mặc định là 3306)
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # hoặc mysql, sqlite3
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
+    }
+}
 
 
 # Password validation
