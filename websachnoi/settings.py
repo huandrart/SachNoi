@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -75,18 +78,18 @@ WSGI_APPLICATION = 'websachnoi.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'audiobook',  # Tên cơ sở dữ liệu của bạn
-    #     'USER': 'root',  # Tên người dùng MySQL
-    #     'PASSWORD': 'dauphuthanhkim00',  # Mật khẩu MySQL
-    #     'HOST': '127.0.0.1',  # Địa chỉ máy chủ MySQL (localhost nếu đang chạy trên máy tính cục bộ)
-    #     'PORT': '3306',  # Cổng của MySQL (mặc định là 3306)
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'defaultdb',  # Tên cơ sở dữ liệu của bạn
+        'USER': 'avnadmin',  # Tên người dùng MySQL
+        'PASSWORD': 'AVNS_Xo7hEecALufhRtngeQP',  # Mật khẩu MySQL
+        'HOST': 'mysql-4c55101-minhtrivo2005gg-b6de.c.aivencloud.com',  # Địa chỉ máy chủ MySQL (localhost nếu đang chạy trên máy tính cục bộ)
+        'PORT': '26715',  # Cổng của MySQL (mặc định là 3306)
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 

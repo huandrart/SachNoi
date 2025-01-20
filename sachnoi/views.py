@@ -1,7 +1,7 @@
-from django.shortcuts import render ,redirect
+from django.shortcuts import render ,redirect , get_object_or_404
 from django.http import HttpResponse , JsonResponse
 from gtts import gTTS # type: ignore
-from sachnoi.models import TextEntry, Books
+from sachnoi.models import  Books
 from .forms import TextToSpeechForm
 from io import BytesIO
 from . models import *
@@ -113,3 +113,16 @@ def convert_text_to_speech(request, text_id):
 def testapi(request):
     data = list(Books.objects.values())
     return JsonResponse(data ,safe=False)
+def book_list(request):
+    """
+    View để hiển thị danh sách tất cả các sách.
+    """
+    books = Books.objects.all()  # Lấy tất cả sách từ cơ sở dữ liệu
+    return render(request, 'app/book_list.html', {'books': books})
+
+def book_detail(request, pk):
+    """
+    View để hiển thị chi tiết một cuốn sách.
+    """
+    book = get_object_or_404(Books, pk=pk)  # Lấy sách theo id (pk)
+    return render(request, 'app/book_detail.html', {'book': book})

@@ -4,8 +4,10 @@ from . import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.home, name='home'),  
+    # path('admin/', admin.site.urls),
+    path('', views.book_list, name='book_list'),  # URL để hiển thị danh sách sách
+    path('book/<int:pk>/', views.book_detail, name='book_detail'),
+    # path('', views.home, name='home'),  
     path('index.html', views.home, name='home'),  
     path('discover.html', views.discover, name='discover'),  
     path('author.html', views.author, name='author'),  
