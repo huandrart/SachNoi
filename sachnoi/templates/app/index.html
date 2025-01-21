@@ -37,19 +37,20 @@
                 <li><a href="{% url 'login' %}">Đăng nhập</a></li>
                 <li><a href="{% url 'signup' %}">Đăng ký</a></li>
    
-<!-- {% comment %} 
+<!-- 
                 <ul>
                     {% for entry in entries %}
                         <li>
                             {{ entry.title }} - <a href="{% url 'convert_text_to_speech' entry.id %}">Tải xuống</a>
                         </li>
                     {% endfor %}
-                </ul> {% endcomment %} -->
+                </ul> {% endcomment %} 
                 <div class ="form-inline my-2 my-lg-0">
-                    <!-- <span>hello! {{request.user}}</span> -->
+                     <span>hello! {{request.user}}</span> 
                     <span><a href="{% url 'logout' %}">Đăng xuất</a></span>
 
                 </div>
+                -->
                 
             </ul>
         </div>
