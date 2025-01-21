@@ -41,8 +41,7 @@ def category(request):
     )
 def discover(request):
     return render(request,'app/discover.html')
-# def demo(request):
-    # return render(request,'app/detail.html')
+
 
 
 # view login | signup
