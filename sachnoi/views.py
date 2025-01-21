@@ -27,8 +27,15 @@ def book_detail(request, pk):
 def author(request):
     return render(request,'app/author.html')
 def category(request):
+    books1 = Books.objects.all().filter(category_id=1)
+    books2 = Books.objects.all().filter(category_id=2)
+    books3 = Books.objects.all().filter(category_id=3)
+    books4 = Books.objects.all().filter(category_id=4)
+    books5 = Books.objects.all().filter(category_id=5)
+    books6 = Books.objects.all().filter(category_id=6)
+
     return render(
-        request,'app/category.html'
+        request,'app/category.html', {'books1': books1 , 'books2': books2 , 'books3': books3 , 'books4': books4 , 'books5': books5 , 'books6': books6}
     )
 def discover(request):
     return render(request,'app/discover.html')
