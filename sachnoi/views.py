@@ -22,8 +22,9 @@ def book_detail(request, pk):
     """
     View để hiển thị chi tiết một cuốn sách.
     """
+    b = Books.objects.all()
     book = get_object_or_404(Books, pk=pk)  # Lấy sách theo id (pk)
-    return render(request, 'app/book_detail.html', {'book': book})
+    return render(request, 'app/detail.html', {'book': book , 'b': b})
 def author(request):
     author = Authors.objects.all().distinct()
     return render(request,'app/author.html',{'author':author})
@@ -40,7 +41,11 @@ def category(request):
     )
 def discover(request):
     return render(request,'app/discover.html')
+# def demo(request):
+    # return render(request,'app/detail.html')
 
+
+# view login | signup
 
 def loginpage(request):
     if request.user.is_authenticated:
