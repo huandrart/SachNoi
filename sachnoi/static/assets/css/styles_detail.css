@@ -10,9 +10,10 @@
 
 /* sizebar-box */
 .container-one .sidebar-box {
-    width: 30%;
+    width: 40%;
     background: var(--color-four);
     border-radius: 20px;
+    margin-right: 60px;
 }
 
 .container-one .sidebar-box .sidebar-header {
@@ -274,7 +275,28 @@
     margin-bottom: 40px;
     
 }
-
+.container-one .description-box .main-content h1 {
+    font-size: 30px;
+    font-weight: 500;
+    /* margin-bottom: 10px; */
+}
+.container-one .description-box .main-content p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.container-one .description-box .author-information h1 {
+    font-size: 30px;
+}
+.container-one{
+    background-color: #eeeee1;
+    width: 100%;
+    border-radius: 10px;
+}
+.container-one .description-box .author-information p{
+    font-size: 30px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
 @media (max-width: 1200px){
     .container-one .description-box {
         width: 58%;
