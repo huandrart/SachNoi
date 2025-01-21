@@ -49,6 +49,7 @@ h3 {
 /* header */
 .header {
     position: fixed;
+    justify-content: space-between;
     top: 0;
     left: 0;
     display: flex;
@@ -113,7 +114,6 @@ h3 {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    overflow: hidden; 
     z-index: 1000;
     margin-top: 8px;
     margin-right: 10px;
