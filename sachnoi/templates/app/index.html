@@ -20,6 +20,15 @@
 </head>
 <body>
     <!-- header -->
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
     <header class="header">
         <div class="search-container">
             <input type="text" placeholder="Tìm kiếm" class="search-input">
@@ -30,13 +39,17 @@
 
         <div class="header-content">
             <ul>
-                
+                <div class ="form-inline my-2 my-lg-0">
+                    <span>hello! {{request.user}}</span>
+                    {% comment %} <span><a href="{% url 'logout' %}">Đăng xuất</a></span> {% endcomment %}
+
+                </div>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
                 <li><a href="{% url 'author' %}">Tác giả</a></li>
                 <li><a href="{% url 'category' %}">Thể loại</a></li>
                 <li><a href="{% url 'login' %}">Đăng nhập</a></li>
                 <li><a href="{% url 'signup' %}">Đăng ký</a></li>
-   
+                
 
             </ul>
         </div>

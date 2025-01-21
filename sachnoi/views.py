@@ -48,14 +48,14 @@ def discover(request):
 
 def loginpage(request):
     if request.user.is_authenticated:
-        return redirect('home')  # Nếu người dùng đã đăng nhập, chuyển hướng đến trang chủ.
+        return redirect('index')  # Nếu người dùng đã đăng nhập, chuyển hướng đến trang chủ.
     if request.method == "POST":
         name = request.POST.get('username')
         pass1 = request.POST.get('password')
         user = authenticate(request, username=name, password=pass1)
         if user is not None:
             login(request, user)  # Đăng nhập người dùng.
-            return redirect('home')  # Chuyển hướng đến trang chủ.
+            return redirect('index')  # Chuyển hướng đến trang chủ.
         else: messages.info(request, 'Tên đăng nhập hoặc mật khẩu không đúng!')
 
     context = {}
@@ -70,6 +70,8 @@ def signup(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Đăng ký thành công!')  
+            return redirect('index')  
     context = {'form' : form}
     return render(request,'app/signup.html', context)
 
