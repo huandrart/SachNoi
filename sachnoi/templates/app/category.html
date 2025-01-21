@@ -23,7 +23,7 @@
         <div class="header-content">
             <ul>
                 <li>
-                    <a href="">
+                    <a href="index.html">
                         Trang chủ
                     </a>
                 </li>
@@ -59,12 +59,12 @@
             </a>
         </div>
         <div class="suggestion-item">
-            <a href="#">
-                Phát triển bản thânthân
+            <a href="#phat_trien">
+                Phát triển bản thân
             </a>
         </div>
         <div class="suggestion-item">
-            <a href="#">
+            <a href="#suc_khoe">
                 Sức khỏe
             </a>
         </div>
@@ -74,7 +74,7 @@
             </a>
         </div>
         <div class="suggestion-item">
-            <a href="#">
+            <a href="#tu_duy">
                 Tư duy
             </a>
         </div>
@@ -90,11 +90,11 @@
                 <h3>Xem thêm</h3>
             </a>
         </div>
-        {% for book in books1 %}
+        
         <div class="audiobook-list">
-         
+            {% for book in books1 %}
             <div class="audiobook audiobook-item">
-                <a href="#">
+                <a href="{% url 'book_detail' book.id %}">
                     <div class="main category-item-main">
                         <div class="book-image">
                             <img src=" {{book.cover_image}} " alt="Sach" class="image">
@@ -115,20 +115,20 @@
                         <i class="fa-solid fa-circle-play"></i>
                     </div>
                 </div>
-            </div>
+            </div>{% endfor %}
 
-        </div>{% endfor %}
-        <div class="title">
+        </div>
+        <div class="title" id="phat_trien">
             <h1>Phát triển bản thân</h1>
             <a href="#">
                 <h3>Xem thêm</h3>
             </a>
         </div>
-        {% for book in books2 %}
+        
         <div class="audiobook-list">
-         
+            {% for book in books2 %}
             <div class="audiobook audiobook-item">
-                <a href="#">
+                <a href="{% url 'book_detail' book.id %}">
                     <div class="main category-item-main">
                         <div class="book-image">
                             <img src=" {{book.cover_image}} " alt="Sach" class="image">
@@ -149,20 +149,20 @@
                         <i class="fa-solid fa-circle-play"></i>
                     </div>
                 </div>
-            </div>
+            </div>{% endfor %}
 
-        </div>{% endfor %}
-        <div class="title">
+        </div>
+        <div class="title" id="suc_khoe">
             <h1>Sức khỏe</h1>
             <a href="#">
                 <h3>Xem thêm</h3>
             </a>
         </div>
-        {% for book in books3 %}
+        
         <div class="audiobook-list">
-         
+            {% for book in books3 %}
             <div class="audiobook audiobook-item">
-                <a href="#">
+                <a href="{% url 'book_detail' book.id %}">
                     <div class="main category-item-main">
                         <div class="book-image">
                             <img src=" {{book.cover_image}} " alt="Sach" class="image">
@@ -184,19 +184,19 @@
                     </div>
                 </div>
             </div>
-
-        </div>{% endfor %}
-        <div class="title">
+            {% endfor %}
+        </div>
+        <div class="title" id="xa_hoi">
             <h1>Xã hội</h1>
             <a href="#">
                 <h3>Xem thêm</h3>
             </a>
         </div>
-        {% for book in books4 %}
+       
         <div class="audiobook-list">
-         
+            {% for book in books4 %}
             <div class="audiobook audiobook-item">
-                <a href="#">
+                <a href="{% url 'book_detail' book.id %}">
                     <div class="main category-item-main">
                         <div class="book-image">
                             <img src=" {{book.cover_image}} " alt="Sach" class="image">
@@ -217,20 +217,20 @@
                         <i class="fa-solid fa-circle-play"></i>
                     </div>
                 </div>
-            </div>
+            </div>{% endfor %}
 
-        </div>{% endfor %}
+        </div>
         <div class="title" id="tam_sinh_ly">
-            <h1>Tâm sinh lýlý</h1>
+            <h1>Tâm sinh lý</h1>
             <a href="#">
                 <h3>Xem thêm</h3>
             </a>
         </div>
-        {% for book in books5 %}
+        
         <div class="audiobook-list">
-         
+            {% for book in books5 %}
             <div class="audiobook audiobook-item">
-                <a href="#">
+                <a href="{% url 'book_detail' book.id %}">
                     <div class="main category-item-main">
                         <div class="book-image">
                             <img src=" {{book.cover_image}} " alt="Sach" class="image">
@@ -251,20 +251,20 @@
                         <i class="fa-solid fa-circle-play"></i>
                     </div>
                 </div>
-            </div>
+            </div>{% endfor %}
 
-        </div>{% endfor %}
-        <div class="title">
+        </div>
+        <div class="title" id="tu_duy">
             <h1>Tư duy</h1>
             <a href="#">
                 <h3>Xem thêm</h3>
             </a>
         </div>
-        {% for book in books6 %}
+        
         <div class="audiobook-list">
-         
+            {% for book in books6 %}
             <div class="audiobook audiobook-item">
-                <a href="#">
+                <a href="{% url 'book_detail' book.id %}">
                     <div class="main category-item-main">
                         <div class="book-image">
                             <img src=" {{book.cover_image}} " alt="Sach" class="image">
@@ -285,37 +285,10 @@
                         <i class="fa-solid fa-circle-play"></i>
                     </div>
                 </div>
-            </div>
+            </div>{% endfor %}
 
-        </div>{% endfor %}
-        {% for book in books1 %}
-        <div class="audiobook-list">
-         
-            <div class="audiobook audiobook-item">
-                <a href="#">
-                    <div class="main category-item-main">
-                        <div class="book-image">
-                            <img src=" {{book.cover_image}} " alt="Sach" class="image">
-                        </div>
-                        <div class="book-information">
-                            <h2 class="book-title">{{book.title}}</h2>
-                            <h3 class="author">{{book.author.name}}</h3>
-                        </div>
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                    </div>
-                </a>  
-                <div class="sidebar categoryr-item-sidebar">
-                    <div class="book-time">
-                        <i class="fa-regular fa-clock"></i>
-                        <span class="time">2 giờ, 07 phút</span>
-                    </div>
-                    <div class="icon">
-                        <i class="fa-solid fa-circle-play"></i>
-                    </div>
-                </div>
-            </div>
-
-        </div>{% endfor %}
+        </div>
+ 
       
     </div>  
  
