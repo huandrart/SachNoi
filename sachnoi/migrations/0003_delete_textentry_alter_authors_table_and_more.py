@@ -10,9 +10,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.DeleteModel(
-            name='TextEntry',
-        ),
+        # migrations.DeleteModel(
+        #     name='TextEntry',
+        # ),
         migrations.AlterModelTable(
             name='authors',
             table='Authors',

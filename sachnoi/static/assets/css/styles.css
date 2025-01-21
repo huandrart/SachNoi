@@ -57,6 +57,7 @@
 
 .container .main-content .discover .discover-list .discover-item i {
     font-size: 20px;
+    margin-bottom: 5px;
 }
 
 .container .main-content .discover-list {
@@ -126,8 +127,8 @@
     .container .main-content .discover .discover-list .discover-item {
         width: 80px;
         height: 80px;
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: 15px;
+        margin-right: 15px;
         margin-bottom: 20px;
     }
 }
@@ -565,6 +566,29 @@
 /* section two */
 .for-you-title {
     margin-top: 80px;
+}
+
+.audiobook {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.audiobook:hover {
+    transform: scale(1.05);
+}
+
+.header-content ul li a {
+    padding: 10px 15px; /* Add some padding */
+    text-decoration: none; /* Remove underline */
+    color: #333; /* Default text color */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.header-content ul li a:hover {
+    background-color: #007BFF; /* Change background on hover */
+    color: white; /* Change text color on hover */
+    border-radius: 5px; /* Rounded corners */
 }
 
 @media (max-width: 1028px){
