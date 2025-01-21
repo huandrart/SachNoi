@@ -6,7 +6,7 @@ Mục tiêu chính của dự án là tạo ra một nền tảng thân thiện 
 - Quản lý nội dung sách và văn bản.
 - Chuyển đổi văn bản sang giọng nói với các tùy chọn cá nhân hóa.
 - Theo dõi lịch sử nghe và lưu trữ vị trí dừng.
-- Hỗ trợ các tùy chọn giọng đọc khác nhau (giọng Nam/Nữ, tốc độ).
+- Hỗ trợ các tùy chọn tốc đọ đọc khác nhau .
 - Quản lý danh mục, tác giả, và tệp âm thanh.
 **Yêu cầu hệ thống**
 Node.js
@@ -25,11 +25,8 @@ MongoDB hoặc hệ quản trị cơ sở dữ liệu tương tự
 - Di chuyển vào thư mục frontend và cài đặt các dependencies:
 - npm install  
 **Chạy ứng dụng**
-**Khởi động server backend:**
-- cd backend  
-- npm start  
-**Khởi động frontend:**
-- cd frontend
-- npm run dev 
+- cài đặt thêm 1 số môi trường như : pip install gtts, pip install python-decouple,..
+
+
 
 
