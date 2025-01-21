@@ -8,7 +8,9 @@
 
     --font: "Inter", serif
 }
-
+html{
+    scroll-behavior: smooth;
+}
 body {
     font-family: var(--font);
     color: black;
@@ -247,14 +249,18 @@ h3 {
 .audiobook-list {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
 .audiobook-item {
     width: calc(100%/4 - 30px);
     background: var(--color-three);
     border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 30px;
+
 }
 
 .audiobook-item .main {
@@ -263,7 +269,7 @@ h3 {
 }
 
 .audiobook-item .main .book-image {
-    width: 70px;
+    width: 90px;
     height: 90px;
     overflow: hidden;
     border-radius: 10px;

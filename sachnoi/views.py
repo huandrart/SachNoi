@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse , JsonResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from sachnoi.models import  Books
+from sachnoi.models import  Books , Authors
 from .forms import TextToSpeechForm
 from io import BytesIO
 from . models import *
@@ -25,7 +25,8 @@ def book_detail(request, pk):
     book = get_object_or_404(Books, pk=pk)  # Lấy sách theo id (pk)
     return render(request, 'app/book_detail.html', {'book': book})
 def author(request):
-    return render(request,'app/author.html')
+    author = Authors.objects.all().distinct()
+    return render(request,'app/author.html',{'author':author})
 def category(request):
     books1 = Books.objects.all().filter(category_id=1)
     books2 = Books.objects.all().filter(category_id=2)
