@@ -1,5 +1,6 @@
 from django.shortcuts import render ,redirect , get_object_or_404
 from django.contrib.auth import authenticate,login,logout
+from django.http import HttpResponse , JsonResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from sachnoi.models import  Books
@@ -65,4 +66,5 @@ def forgot_password(request):
 
 def enter_OTP_code(request):
     return render(request,'app/enter_OTP_code.html')
+
 

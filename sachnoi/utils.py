@@ -22,3 +22,5 @@ def generate_audio(book):
     # Lưu đường dẫn tương đối vào trường audio_file
     book.audio_file = f"audio_files/{book.id}.mp3"
     book.save()
+
+
