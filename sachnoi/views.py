@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from sachnoi.models import  Books , Authors
 from .forms import TextToSpeechForm
+from django.db.models import Q
 from io import BytesIO
 from . models import *
 import json
@@ -75,10 +76,14 @@ def signup(request):
     context = {'form' : form}
     return render(request,'app/signup.html', context)
 
-def forgot_password(request):
-    return render(request,'app/forgot_password.html')
 
-def enter_OTP_code(request):
-    return render(request,'app/enter_OTP_code.html')
-
-
+def search_results(request):
+    query = request.GET.get('q', '')
+    results = []
+    if query:
+        results = Books.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(author__name__icontains=query)
+        )
+    return render(request, 'app/search_results.html', {'query': query, 'results': results})
