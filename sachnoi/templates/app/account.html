@@ -8,52 +8,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/base.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}" />
-
-    <link rel="stylesheet" href="{% static 'assets/css/styles_author.css' %}"/>
-    <link rel="stylesheet" href="{% static 'assets/css/author_page.css' %}"/>
-
-    <script src="{% static 'assets/js/author.js' %}" defer></script>
-
+    <link rel="stylesheet" href="{% static 'assets/css/styles_account.css' %}"/>
 </head>
 <body>
     <!-- header -->
     <header class="header">
         {% comment %} <div class="search-container">
-<<<<<<< HEAD
+            <input type="text" placeholder="Tìm kiếm" class="search-input">
+            <button class="search-button">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div> {% endcomment %}
+
+        {% comment %} <div class="search-container">
             <form method="GET" action="{% url 'search_results' %}" class="search-form">
                 <input type="text" name="q" placeholder="Tìm kiếm" class="search-input" required>
                 <button type="submit" class="search-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-=======
-            <input type="text" placeholder="Tìm kiếm" class="search-input">
-            <button class="search-button">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
->>>>>>> 43ca71c576ef5ff4c7883a0ad6a4c6feee7c0d65
         </div> {% endcomment %}
+        
 
         <div class="header-content">
-            <ul>
+            <ul>    
                 <li><a href="{% url 'index' %}">Trang chủ</a></li>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
-                <li class="title-page"><a href="{% url 'author' %}">Tác giả</a></li>
+                <li><a href="{% url 'author' %}">Tác giả</a></li>
                 <li><a href="{% url 'category' %}">Thể loại</a></li>  
             </ul>
         </div>
 
-        <div class="bar">
+        {% comment %} <div class="bar">
             <i class="fa-solid fa-bars" id="bar-icon"></i>
             <ul class="dropdown-menu-bar" id="dropdown-menu-bar">
-                <li><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
                 <li><a href="{% url 'author' %}">Tác giả</a></li>
                 <li><a href="{% url 'category' %}">Thể loại</a></li>
             </ul>
-        </div>
-
+        </div> {% endcomment %}
 
         <div class="personal-account">
             <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" 
@@ -66,38 +60,38 @@
                 <li><a href="{% url 'login' %}">Đăng nhập</a></li>
                 <li><a href="{% url 'signup' %}">Đăng ký</a></li>
                 <li><a href="{% url 'logout' %}">Đăng xuất</a></li>
-            </ul>
-        </div>  
-    </header>
-
-    <!-- toi code  -->
-    <div class="container">
-        <h1>Danh sách tác giả</h1>
-        
-        <div class="authors-list">
-            {% for author in author %}
-            <div class="author-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgYegi1oJBIF3nzh_02dZ-zoi80N3j-soMumEVrwDQOOGnyhuBBF0zk8OjMvq_OvfvaRBWFg-YFQAkFMFi9ZByx7eejnd6Pamq8w45CnA9IzVKM4WBD36H-SzYVnek2B4Js_ol6k66U75ocOZM8tPxSLw6lEmz5wQ9TA2A6vHTN86L2w2_FyrTsvUKvVa8/w320/dan-norris.webp" alt="Tác giả 1" class="author-img">
-                <p class="author-name">{{author.name}}</p>
-            </div>{% endfor %}
-
+            </ul>   
         </div>
-
-    </div>
-
-
-
-
+        
+    </header>
     <!-- end header -->
 
-    <!-- suggestion -->
-
-    <!-- end suggestion -->
-
-    <!-- section-one -->
-    
-    <!-- end section-four-->
-
+    <div class="main">
+        <div class="NavBar">
+            <div class="account-image">
+                <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" alt="Anh dai dien">
+            </div>
+            <h3>VuDuyen</h3>
+            <h3>vuthuduyen.2010@gmail.com</h3>
+            <ul>
+                <li>
+                    <a href="{% url 'book_history' %}">
+                            Sách đã đọc
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'favorite_books'}">
+                            Sách yêu thích
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'save_book' %}">
+                            Sách đã lưu
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const userImage = document.getElementById("user-image");
