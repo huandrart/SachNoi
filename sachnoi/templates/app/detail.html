@@ -9,6 +9,132 @@
     <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/styles_detail.css' %}">
+    <style>
+        /* Container chính của chatbot */
+/* CSS giao diện chatbot với kích thước cố định và cuộn */
+
+/* Chat Container */
+/* Giao diện Chatbot chuyên nghiệp hơn */
+/* Giao diện Chatbot với chiều rộng lớn hơn */
+.chat-container {
+    max-width: 800px; /* Chiều rộng lớn hơn */
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff; /* Nền trắng */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ để tạo chiều sâu */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Phông chữ hiện đại */
+}
+
+.chat-container .chat-title {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #343a40; /* Màu tiêu đề đậm và trung tính */
+}
+
+.chat-container .book-description {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #6c757d; /* Màu mô tả sách nhẹ nhàng */
+}
+
+.chat-container .chatbot-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #495057; /* Màu tiêu đề chatbot tối */
+}
+
+#chat-form {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#user_message {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 2px solid #ced4da;
+    border-radius: 20px;
+    resize: none;
+    background-color: #f8f9fa; /* Nền nhẹ cho ô nhập liệu */
+    color: #495057; /* Màu chữ đậm */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+#user_message:focus {
+    border-color: #007bff; /* Thay đổi màu viền khi focus */
+    outline: none;
+}
+
+#send-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+#send-button:hover {
+    background-color: #0056b3; /* Màu khi hover */
+}
+
+#chat-response {
+    max-height: 350px; /* Chiều cao cố định cho phần phản hồi */
+    overflow-y: auto; /* Cuộn dọc khi nội dung vượt quá */
+    padding: 15px;
+    background-color: #f8f9fa; /* Nền sáng cho phần phản hồi */
+    border: 1px solid #ced4da;
+    border-radius: 12px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.user-message {
+    text-align: right;
+    background-color: #d1e7dd; /* Màu nền tin nhắn người dùng */
+    color: #0f5132; /* Màu chữ người dùng */
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 20px;
+    display: inline-block;
+    max-width: 75%;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.bot-message {
+    text-align: left;
+    background-color: #f8d7da; /* Màu nền tin nhắn bot */
+    color: #842029; /* Màu chữ bot */
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 20px;
+    display: inline-block;
+    max-width: 75%;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Cuộn mượt */
+#chat-response {
+    scroll-behavior: smooth;
+}
+
+
+    </style>
 </head>
 <body>
     <!-- header -->
@@ -101,6 +227,31 @@
         </div>
     </div>
     <!-- </section-one> -->
+    <div class="chat-container">
+        <h1 class="chat-title">Vodka BOT</h1>
+        <p class="book-description">Khám phá cuốn sách này với vodkabot</p>
+    
+        <h2 class="chatbot-title">{{book.title}}</h2>
+       <div id="chat-response">
+            <!-- <h3 class="response-title">Chatbot Response:</h3>
+            <p class="response-content">Hello! How can I help you with books today?</p> -->
+        </div>
+        <form id="chat-form" method="POST">
+            {% csrf_token %}
+            <textarea id="user_message" name="user_message" placeholder="Nhập vào đây..."></textarea>
+            <button id="send-button" type="submit">Gửi</button>
+        </form>
+    
+        
+    </div>
+    
+
+
+
+
+
+<!-- Chatbot  -->
+
 
     <!-- section two -->
     <div class="container container-two">
@@ -135,5 +286,77 @@
             
     </div>
     <!-- end section two -->
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const chatForm = document.getElementById("chat-form");
+  const userMessageInput = document.getElementById("user_message");
+  const chatResponseDiv = document.getElementById("chat-response");
+  const sendButton = document.getElementById("send-button");
+
+  chatForm.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Ngăn việc refresh trang
+    const userMessage = userMessageInput.value.trim();
+
+    if (userMessage === "") {
+      alert("Vui lòng nhập nội dung trước khi gửi!");
+      return;
+    }
+
+    // Disable nút gửi để tránh gửi liên tiếp
+    sendButton.disabled = true;
+
+    // Hiển thị tin nhắn người dùng
+    const userMessageElement = document.createElement("p");
+    userMessageElement.className = "user-message";
+    userMessageElement.textContent = `Bạn: ${userMessage}`;
+    chatResponseDiv.appendChild(userMessageElement);
+
+    try {
+      // Gửi dữ liệu tới server
+      const response = await fetch(window.location.href, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+        },
+        body: new URLSearchParams({ user_message: userMessage }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Có lỗi xảy ra khi gửi yêu cầu tới server!");
+      }
+
+      const data = await response.json();
+
+      // Hiển thị phản hồi từ chatbot
+      const botMessageElement = document.createElement("p");
+      botMessageElement.className = "bot-response";
+      botMessageElement.textContent = `Vodka BOT: ${data.response}`;
+      chatResponseDiv.appendChild(botMessageElement);
+    } catch (error) {
+      console.error("Error:", error);
+
+      // Hiển thị thông báo lỗi
+      const errorMessageElement = document.createElement("p");
+      errorMessageElement.className = "error-message";
+      errorMessageElement.textContent =
+        "Có lỗi xảy ra khi kết nối tới chatbot. Vui lòng thử lại sau.";
+      chatResponseDiv.appendChild(errorMessageElement);
+    } finally {
+      // Kích hoạt lại nút gửi và xóa nội dung nhập
+      sendButton.disabled = false;
+      userMessageInput.value = "";
+    }
+
+    // Cuộn xuống cuối đoạn chat
+    chatResponseDiv.scrollTop = chatResponseDiv.scrollHeight;
+  });
+});
+
+
+
+    </script>
+    
 </body>
 </html>

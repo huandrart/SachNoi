@@ -10,6 +10,7 @@ from io import BytesIO
 from . models import *
 import json
 from django.contrib.auth.forms import UserCreationForm
+from .MyBot import vodka
 
 
 # View page 
@@ -21,11 +22,21 @@ def index(request):
     return render(request, 'app/index.html', {'books': books})
 def book_detail(request, pk):
     """
-    View để hiển thị chi tiết một cuốn sách.
+    View để hiển thị chi tiết một cuốn sách và xử lý input người dùng bằng AJAX.
     """
     b = Books.objects.all()
-    book = get_object_or_404(Books, pk=pk)  # Lấy sách theo id (pk)
-    return render(request, 'app/detail.html', {'book': book , 'b': b})
+    book = get_object_or_404(Books, pk=pk)
+
+    if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        # Kiểm tra header X-Requested-With để xác định yêu cầu AJAX
+        user_message = request.POST.get('user_message', '')
+        if user_message:
+            response = vodka(book.text_content, user_message)
+            print("Bot Response:", response)
+            return JsonResponse({'response': response})  # Trả về JSON
+
+    # Trả về trang HTML bình thường nếu là yêu cầu GET
+    return render(request, 'app/detail.html', {'book': book, 'b': b})
 def author(request):
     author = Authors.objects.all().distinct()
     return render(request,'app/author.html',{'author':author})
