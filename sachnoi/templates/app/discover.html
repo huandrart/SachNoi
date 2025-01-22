@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}" />
+
     <link rel="stylesheet" href="{% static 'assets/css/styles_discover.css' %}" />
 </head>
 
 <body>
     <!-- header -->
     <header class="header">
-        <div class="search-container">
+        {% comment %} <div class="search-container">
             <input type="text" placeholder="Tìm kiếm" class="search-input">
             <button class="search-button">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-        </div>
+        </div> {% endcomment %}
 
         <div class="header-content">
             <ul>
@@ -78,7 +80,7 @@
     <!-- end suggestion -->
 
     <!-- section-one -->
-    <div class="container container-one">
+    <div class="container container-two">
         <div class="title">
             <h1>Ra mắt gần đây</h1>
             <a href="#">
