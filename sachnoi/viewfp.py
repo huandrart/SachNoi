@@ -1,10 +1,11 @@
 import random
 import string
-from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
 
 # Gửi mã OTP
 def send_otp(email):
@@ -21,12 +22,12 @@ def forgot_password(request):
         email = request.POST.get('email')
         # Kiểm tra email có tồn tại trong hệ thống không
         try:
-            user = User.objects.get(email=email)
+            user = get_user_model().objects.get(email=email)
             otp = send_otp(email)
             request.session['otp'] = otp  # Lưu OTP vào session để so sánh sau
             request.session['email'] = email  # Lưu email vào session
             return redirect('enter_otp_code')
-        except User.DoesNotExist:
+        except get_user_model().DoesNotExist:
             messages.error(request, "Email không tồn tại!")
     
     return render(request, 'app/forgot_password.html')
@@ -35,9 +36,27 @@ def forgot_password(request):
 def enter_OTP_code(request):
     if request.method == "POST":
         otp_input = request.POST.get('otp')
-        if otp_input == request.session.get('otp'):
+        if otp_input == request.session.get('otp'):  # So sánh OTP nhập vào với OTP trong session
             return redirect('reset_password')  # Chuyển tới trang thay đổi mật khẩu
         else:
             messages.error(request, "Mã OTP không chính xác!")
     
     return render(request, 'app/enter_OTP_code.html')
+
+# Đặt lại mật khẩu
+def reset_password(request):
+    if request.method == "POST":
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if new_password == confirm_password:
+            email = request.session.get('email')
+            user = get_user_model().objects.get(email=email)
+            user.password = make_password(new_password)  # Mã hóa mật khẩu
+            user.save()  # Lưu mật khẩu mới vào DB
+            messages.success(request, "Mật khẩu đã được thay đổi thành công!")
+            return redirect('login')  # Chuyển hướng về trang đăng nhập
+        else:
+            messages.error(request, "Mật khẩu xác nhận không khớp!")
+    
+    return render(request, 'app/reset_password.html')
