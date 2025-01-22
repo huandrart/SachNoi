@@ -13,6 +13,13 @@ Node.js
 npm hoặc yarn
 MongoDB hoặc hệ quản trị cơ sở dữ liệu tương tự
 **Cài đặt**
+**1 So lenh git**
+ git add .
+ git commit -m "..."
+ git pull
+ git push
+ git checkout ...
+ va 1 so lenh git khac
 **Clone kho lưu trữ:**
 - git clone <repository-url>  
 **Cài đặt backend:**
@@ -25,7 +32,9 @@ MongoDB hoặc hệ quản trị cơ sở dữ liệu tương tự
 - Di chuyển vào thư mục frontend và cài đặt các dependencies:
 - npm install  
 **Chạy ứng dụng**
-- cài đặt thêm 1 số môi trường như : pip install gtts, pip install python-decouple,..
+- cài đặt thêm 1 số môi trường như : pip install gtts, pip install python-decouple, pip install langchain, cài visual_Buildtool , pip thêm 1 số thư viện được yêu cầu
+- chạy lệnh python manage.py migrate
+python manage.py runserver
 
 
 
