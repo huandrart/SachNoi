@@ -20,7 +20,7 @@
 </head>
 <body>
     <!-- header -->
-    {% if messages %}
+    {% comment %} {% if messages %}
         <div class="alert-container">
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
@@ -28,7 +28,7 @@
                 </div>
             {% endfor %}
         </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
     <header class="header">
         {% comment %} <div class="search-container">
             <input type="text" placeholder="Tìm kiếm" class="search-input">
@@ -37,30 +37,32 @@
             </button>
         </div> {% endcomment %}
 
-        <div class="search-container">
+        {% comment %} <div class="search-container">
             <form method="GET" action="{% url 'search_results' %}" class="search-form">
                 <input type="text" name="q" placeholder="Tìm kiếm" class="search-input" required>
                 <button type="submit" class="search-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-        </div>
+        </div> {% endcomment %}
         
 
         <div class="header-content">
-            <ul>
-                <div class ="form-inline my-2 my-lg-0">
-                    <span>hello! {{request.user}}</span>
-                    {% comment %} <span><a href="{% url 'logout' %}">Đăng xuất</a></span> {% endcomment %}
+            <ul>    
+                <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'discover' %}">Khám phá</a></li>
+                <li><a href="{% url 'author' %}">Tác giả</a></li>
+                <li><a href="{% url 'category' %}">Thể loại</a></li>  
+            </ul>
+        </div>
 
-                </div>
+        <div class="bar">
+            <i class="fa-solid fa-bars" id="bar-icon"></i>
+            <ul class="dropdown-menu-bar" id="dropdown-menu-bar">
+                <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
                 <li><a href="{% url 'author' %}">Tác giả</a></li>
                 <li><a href="{% url 'category' %}">Thể loại</a></li>
-                <li><a href="{% url 'login' %}">Đăng nhập</a></li>
-                <li><a href="{% url 'signup' %}">Đăng ký</a></li>
-                
-
             </ul>
         </div>
 
@@ -72,8 +74,10 @@
             <ul class="dropdown-menu" id="dropdown-menu">
                 <li><a href="/profile/">Thông tin người dùng</a></li>
                 <li><a href="/favorites/">Danh sách yêu thích</a></li>
+                <li><a href="{% url 'login' %}">Đăng nhập</a></li>
+                <li><a href="{% url 'signup' %}">Đăng ký</a></li>
                 <li><a href="{% url 'logout' %}">Đăng xuất</a></li>
-            </ul>
+            </ul>   
         </div>
         
     </header>
@@ -243,6 +247,23 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const barIcon = document.getElementById("bar-icon");
+            const dropdownMenuBar = document.getElementById("dropdown-menu-bar");
     
+            // Hiển thị / ẩn menu khi click vào ảnh
+            barIcon.addEventListener("click", function() {
+                dropdownMenuBar.style.display = dropdownMenuBar.style.display === "block" ? "none" : "block";
+            });
+    
+            // Ẩn menu nếu click ra ngoài
+            document.addEventListener("click", function(event) {
+                if (!barIcon.contains(event.target) && !dropdownMenuBar.contains(event.target)) {
+                    dropdownMenuBar.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
