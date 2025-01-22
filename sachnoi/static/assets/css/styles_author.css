@@ -55,26 +55,3 @@
 .suggestion-list .suggestion-item a:active {
     font-weight: 800;
 }
-
-.audiobook {
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-}
-
-.audiobook:hover {
-    transform: scale(1.05);
-}
-
-.header-content ul li a {
-    padding: 10px 15px; /* Add some padding */
-    text-decoration: none; /* Remove underline */
-    color: #333; /* Default text color */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
-}
-
-.header-content ul li a:hover {
-    background-color: #007BFF; /* Change background on hover */
-    color: white; /* Change text color on hover */
-    border-radius: 5px; /* Rounded corners */
-}
