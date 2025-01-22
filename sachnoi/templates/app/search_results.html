@@ -1,5 +1,31 @@
-{% extends 'app/index.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search</title>
+    <link rel="stylesheet" href="{% static 'assets/css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
+</head>
+<body>
+    <header class="header">
+        
+        <div class="header-content">
+            <ul>
+                
+                <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'discover' %}">Khám phá</a></li>
+                <li><a href="{% url 'author' %}">Tác giả</a></li>
+                <li><a href="{% url 'category' %}">Thể loại</a></li>
+               
+            </ul>
+        </div>
 
+    </header>
+
+</body>
 {% block content %}
     <h1>Kết quả tìm kiếm</h1>
     <p>Tìm kiếm cho: "{{ query }}"</p>
@@ -17,3 +43,4 @@
         <p>Không tìm thấy kết quả nào.</p>
     {% endif %}
 {% endblock %}
+</html>

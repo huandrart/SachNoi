@@ -128,6 +128,17 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
+# settings.py
+
+# Cấu hình email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Sử dụng SMTP để gửi email
+EMAIL_HOST = 'smtp.gmail.com'  # Máy chủ SMTP của Gmail
+EMAIL_PORT = 587  # Cổng SMTP, thường là 587 cho TLS
+EMAIL_USE_TLS = True  # Sử dụng mã hóa TLS (bảo mật)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Địa chỉ email của bạn
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # Mật khẩu email của bạn
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Địa chỉ email gửi đi (thường là EMAIL_HOST_USER)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

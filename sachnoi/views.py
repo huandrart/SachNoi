@@ -10,7 +10,6 @@ from io import BytesIO
 from . models import *
 import json
 from django.contrib.auth.forms import UserCreationForm
-from .MyBot import vodka
 
 
 # View page 
