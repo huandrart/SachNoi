@@ -52,8 +52,18 @@ def category(request):
     )
 def discover(request):
     return render(request,'app/discover.html')
-
-
+def profile(request):
+    return render(request,'app/account.html')
+def favorite(request):
+    return render(request,'app/favorite_books.html')
+def save_book(request):
+    return render(request,'app/save_book.html')
+def book_history(request):
+    return render(request,'app/book_history.html')
+def favorite_books(request):
+    return render(request,'app/favorite_books.html')
+def account(request):
+    return render(request,'app/account.html')
 
 # view login | signup
 
