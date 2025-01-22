@@ -49,7 +49,6 @@ h3 {
 /* header */
 .header {
     position: fixed;
-    justify-content: space-between;
     top: 0;
     left: 0;
     display: flex;
@@ -74,6 +73,7 @@ h3 {
 
 .search-input {
     border: none;
+    outline: none;
     font-size: 12px;
     width: 300px;
     color: black;
@@ -103,9 +103,24 @@ h3 {
     
 }
 
-.header-content ul li a:active {
+/* .header-content ul li a:active {
     font-weight: 800;
+} */
+
+.header-content ul li a {
+    padding: 10px 15px; 
+    transition: background-color 0.3s, color 0.3s; 
+    border-radius: 5px; 
+    display: inline-block;
+    transition: transform 0.2s;
 }
+
+.header-content ul li a:hover {
+    background-color: var(--color-four);
+    border-radius: 5px; 
+    transform: scale(1.05);
+}
+
 
 .bar {
     display: flex;
@@ -142,7 +157,7 @@ h3 {
     padding: 8px 10px;
 }
 .dropdown-menu-bar li a:hover {
-    background: white;
+    background: var(--color-four);
 }
 
 
@@ -150,28 +165,66 @@ h3 {
     position: absolute;
     top: 0;
     right: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 35px;    
+    height: 35px;
     z-index: 1000;
-    margin-top: 8px;
+    margin-top: 15px;
     margin-right: 10px;
 }
 
 .personal-account .image {
     width: 100%;
-    height: 100%;
+    height: 100%;   
+    border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;    
 }
+
+.dropdown-menu {
+    list-style: none;
+    display: none; 
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    padding: 0; 
+    background-color: var(--color-one);
+    border-radius: 5px;
+    overflow: hidden;
+    width: 150px;
+    z-index: 1000;
+}
+
+.dropdown-menu li {
+    padding: 5px 20px;
+}
+
+.dropdown-menu li a {
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-menu li:hover {
+    background-color: var(--color-four);
+}
+
+@media (max-width: 1200px) {
+    .header-content ul {
+        margin-left: 0px;
+    }
+    .header-content ul li {
+        margin-left: 5px;
+    }
+}
+
 @media (max-width: 1028px) {
     .search-container {
-        margin-left: 100px;
+        margin-left: 55px;
     }
     .search-input {
         width: 250px;
     }
-    .header-content ul li {
-        margin-left: 15px;
+    .header-content ul {
+        margin-left: 10px;
     }
 }
 
@@ -180,32 +233,43 @@ h3 {
         margin-left: 15px;
     }
     .search-input {
-        width: 200px;
-    }
+        width: 175px;
+    }   
     .header-content ul {
         margin-left: 0px;
     }
     .header-content ul li {
+        margin-left: 0px;
         margin-right: 0px;
+    }
+    .header-content ul li a {
+        font-size: 13px;
     }
 }
 
 @media (max-width: 640px) {
     .search-container {
-        margin-left: 20px;
-        padding: 2px 5px;
-    }
-    .search-input {
-        width: 90px;
+        margin-left: 50px;
+        padding: 3px 5px;
     }
     .search-button i {
         font-size: 14px;
+    }
+    .header-content {
+        display: none;
+    }
+    .bar {
+        display: block;
     }
     .header-content ul li a {
         font-size: 12px;
     }
     .header-content ul li {
         margin-left: 10px;
+    }
+    .personal-account {
+        width: 25px;
+        height: 25px;
     }
 }
 
@@ -218,16 +282,7 @@ h3 {
     .search-input {
         width: 100%;
     } 
-    .header-content {
-        display: none;
-    }
-    .bar {
-        display: block;
-    }
-    .personal-account {
-        width: 25px;
-        height: 25px;
-    }
+    
 }
 
 @media (max-width: 320px) {
@@ -291,22 +346,18 @@ h3 {
     }
 }
 /* audiobook-item */
-
 .audiobook-list {
-    width: 100%;
     display: flex;
-    justify-content: flex-start;
-    margin-bottom: 30px;
     flex-wrap: wrap;
 }
 
 .audiobook-item {
-    width: calc(100%/4 - 30px);
+    width: calc(100%/4 - 50px);
     background: var(--color-three);
     border-radius: 10px;
     margin-top: 20px;
-    margin-left: 30px;
-
+    margin-right: 50px;
+    margin-bottom: 30px;
 }
 
 .audiobook-item .main {
@@ -315,7 +366,7 @@ h3 {
 }
 
 .audiobook-item .main .book-image {
-    width: 90px;
+    width: 70px;
     height: 90px;
     overflow: hidden;
     border-radius: 10px;
@@ -374,10 +425,39 @@ h3 {
     font-size: 22px;
 }
 
+.audiobook {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.audiobook:hover {
+    transform: scale(1.05);
+}
+
 @media (max-width: 1200px){
+    .audiobook-item {
+        width: calc(100%/4 - 30px);
+        margin-right: 30px;
+    }
     .audiobook-item .main .book-image {
         width: 60px;
         height: 78px;
+    }
+    .audiobook-item .main .book-information .book-title {
+        font-size: 14px;
+    }
+    .audiobook-item .main .book-information .author {
+        font-size: 10px;
+    }
+    .audiobook-item .sidebar .book-time .time {
+        font-size: 11px;
+    }
+    .audiobook-item .sidebar .book-time i {
+        font-size: 12px;
+    }
+    .audiobook-item .sidebar .icon {
+        font-size: 18px;
     }
 }
 
@@ -392,20 +472,16 @@ h3 {
         width: 50%;
         margin-left: 5px;
     }
-    .audiobook-item .sidebar .book-time .time {
-        font-size: 11px;
-    }
-    .audiobook-item .sidebar .book-time i {
-        font-size: 12px;
-    }
-    .audiobook-item .sidebar .icon {
-        font-size: 18px;
+    .audiobook-item .main .book-information .book-title {
+        font-size: 13px;
     }
 }
 
 @media (max-width: 830px){
     .audiobook-item {
-        width: calc(100%/4 - 15px);
+        width: calc(100%/2 - 50px);
+        margin-right: 50px;
+        margin-bottom: 20px;
     }
     .audiobook-item .main .book-image {
         width: 45px;
@@ -418,42 +494,68 @@ h3 {
 
 @media (max-width: 640px) {
     .audiobook-item {
-        width: calc(100%/2 - 30px);
-        margin-bottom: 20px;
+        width: calc(100%/2 - 20px);
+        margin-right: 20px;
     }
     .audiobook-list {
         flex-wrap: wrap;
         margin-bottom: 0px;
     }
+    .audiobook-item .main .book-information {
+        width: 60%;
+    }
 }
 
 @media (max-width: 480px) {
     .audiobook-item {
-        width: calc(100%/2 - 10px);
+        width: calc(100%/2 - 40px);
+        margin-right: 40px;
+    }
+    .audiobook-item .main{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .audiobook-item .main .book-image {
+        width: 90px;
+        height: 120px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .audiobook-item i {
+        display: none;
+    }
+    .audiobook-item .sidebar {
+        display: none;
+    }
+    .audiobook-item .main .book-information {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
 @media (max-width: 320px) {
-    .audiobook-item .main {
-        flex-wrap: wrap;
+    .audiobook-item {
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .audiobook-item .main{
+        flex-wrap: nowrap;
     }
     .audiobook-item .main .book-image {
-        width: 70%;
-        height: 120px;
-        margin-left: auto;
-        margin-right: auto; 
+        width: 70px;
+        height: 90px;
+        margin-bottom: 10px;
+        margin-left: 5px;
     }
-    .audiobook-item .main i {
-        display: none;
+    .audiobook-item .main .book-information .book-title {
+        font-size: 12px;
     }
     .audiobook-item .main .book-information {
-        width: 100%;
-    }
-    .audiobook-item .sidebar .icon {
-        display: none;
-    }
-    .audiobook-item .main .book-information .author {
-        margin-bottom: 0px;
+        width: 60%;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }
 /*end audiobook-item */

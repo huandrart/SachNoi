@@ -30,27 +30,10 @@
 
         <div class="header-content">
             <ul>
-                
+                <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
                 <li><a href="{% url 'author' %}">Tác giả</a></li>
-                <li><a href="{% url 'category' %}">Thể loại</a></li>
-                <li><a href="{% url 'login' %}">Đăng nhập</a></li>
-                <li><a href="{% url 'signup' %}">Đăng ký</a></li>
-   
-<!-- {% comment %} 
-                <ul>
-                    {% for entry in entries %}
-                        <li>
-                            {{ entry.title }} - <a href="{% url 'convert_text_to_speech' entry.id %}">Tải xuống</a>
-                        </li>
-                    {% endfor %}
-                </ul> {% endcomment %} -->
-                <div class ="form-inline my-2 my-lg-0">
-                    <!-- <span>hello! {{request.user}}</span> -->
-                    <span><a href="{% url 'logout' %}">Đăng xuất</a></span>
-
-                </div>
-                
+                <li><a href="{% url 'category' %}">Thể loại</a></li>  
             </ul>
         </div>
 
@@ -73,10 +56,11 @@
             <ul class="dropdown-menu" id="dropdown-menu">
                 <li><a href="/profile/">Thông tin người dùng</a></li>
                 <li><a href="/favorites/">Danh sách yêu thích</a></li>
+                <li><a href="{% url 'login' %}">Đăng nhập</a></li>
+                <li><a href="{% url 'signup' %}">Đăng ký</a></li>
                 <li><a href="{% url 'logout' %}">Đăng xuất</a></li>
             </ul>
-        </div>
-        
+        </div>  
     </header>
     <!-- end header -->
 
@@ -87,13 +71,6 @@
                 <h1 class="title">
                     Khám phá
                 </h1>
-                <!-- {% for book in books %}
-                <li>
-                    <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
-                </li>
-                {% empty %}
-                    <li>Không có sách nào.</li>
-                {% endfor %} -->
                 <div class="discover-list">
                     <a href="{% url 'category' %}#tai_chinh">
                         <div class="discover-item">
