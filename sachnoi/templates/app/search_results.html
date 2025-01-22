@@ -1,0 +1,19 @@
+{% extends 'app/index.html' %}
+
+{% block content %}
+    <h1>Kết quả tìm kiếm</h1>
+    <p>Tìm kiếm cho: "{{ query }}"</p>
+
+    {% if results %}
+        <ul>
+            {% for result in results %}
+                <li>
+                    <a href="{{ result.get_absolute_url }}">{{ result.title }}</a> - {{ result.description }}
+                    <p>Tác giả: {{ result.author.name }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Không tìm thấy kết quả nào.</p>
+    {% endif %}
+{% endblock %}

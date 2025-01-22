@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Nhập mã OTP</title>
     <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/enter_OTP_code.css' %}">
 </head>
 <body>
     <div class="container">
         <div class="box">
-            <form action="#" method="post">
+            <form action="" method="post">
+                {% csrf_token %}
                 <h1 class="title">Nhập mã OTP</h1>
                 <h3>Chúng tôi đã gửi mã OTP đến email của bạn</h3>
-                <input type="text" id="OTP" placeholder="Mã OTP">
+                <input type="text" name="otp" placeholder="Mã OTP" required>
                 <input type="submit" value="Xác nhận" class="confirm">
                 <a href="#">Gửi lại mã OTP</a>
             </form>

@@ -30,12 +30,22 @@
         </div>
     {% endif %}
     <header class="header">
-        <div class="search-container">
+        {% comment %} <div class="search-container">
             <input type="text" placeholder="Tìm kiếm" class="search-input">
             <button class="search-button">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
+        </div> {% endcomment %}
+
+        <div class="search-container">
+            <form method="GET" action="{% url 'search_results' %}" class="search-form">
+                <input type="text" name="q" placeholder="Tìm kiếm" class="search-input" required>
+                <button type="submit" class="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
         </div>
+        
 
         <div class="header-content">
             <ul>
