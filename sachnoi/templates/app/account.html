@@ -71,8 +71,9 @@
             <div class="account-image">
                 <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" alt="Anh dai dien">
             </div>
-            <h3>VuDuyen</h3>
-            <h3>vuthuduyen.2010@gmail.com</h3>
+            <h3>{{request.user}}</h3>
+            <h3>{{request.user.email}}</h3>
+            {% comment %} <h3>vuthuduyen.2010@gmail.com</h3> {% endcomment %}
             <ul>
                 <li>
                     <a href="{% url 'book_history' %}">
