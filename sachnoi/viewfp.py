@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import make_password
 
 
 def generate_password(length=8):
-    characters = string.ascii_letters + string.digits + string.punctuation  # Bao gồm chữ cái, số và ký tự đặc biệt
+    characters = string.ascii_letters + string.digits # Bao gồm chữ cái, số và ký tự đặc biệt
     return ''.join(random.choices(characters, k=length))  
 def forgot_password(request):
     if request.method == "POST":
