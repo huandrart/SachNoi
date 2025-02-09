@@ -2,6 +2,7 @@ from django.shortcuts import render ,redirect , get_object_or_404
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse , JsonResponse
 from django.contrib import messages
+from gtts import gTTS
 from django.shortcuts import render, redirect
 from sachnoi.models import  Books , Authors
 from .forms import TextToSpeechForm
