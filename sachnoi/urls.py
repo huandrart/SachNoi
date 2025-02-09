@@ -19,4 +19,5 @@ urlpatterns = [
     path('forgot-password/', viewfp.forgot_password, name='forgot_password'),
     path('search/', views.search_results, name='search_results'),
     path("change-password/", viewfp.change_password, name="change_password"),
+    path('text_to_speech/', views.text_to_speech_view, name='text_to_speech'),
 ]

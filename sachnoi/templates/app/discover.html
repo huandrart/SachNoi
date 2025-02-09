@@ -43,12 +43,17 @@
                  class="image" 
                  id="user-image">
             <ul class="dropdown-menu" id="dropdown-menu">
-                <li><a href="/profile/">Thông tin người dùng</a></li>
-                <li><a href="/favorites/">Danh sách yêu thích</a></li>
-                <li><a href="{% url 'login' %}">Đăng nhập</a></li>
-                <li><a href="{% url 'signup' %}">Đăng ký</a></li>
-                <li><a href="{% url 'logout' %}">Đăng xuất</a></li>
-            </ul>
+                {% if user.is_authenticated %}
+                    <li><a href="/profile/">Thông tin người dùng</a></li>
+                    <li><a href="/favorite/">Danh sách yêu thích</a></li>
+                    <li><a href="{% url 'text_to_speech' %}">voice</a></li>
+                    <li><a href="/change-password/">Đổi mật khẩu</a></li>
+                    <li><a href="{% url 'logout' %}">Đăng xuất</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Đăng nhập</a></li>
+                    <li><a href="{% url 'signup' %}">Đăng ký</a></li>
+                {% endif %}
+            </ul>  
         </div>  
     </header>
     <!-- end header -->
