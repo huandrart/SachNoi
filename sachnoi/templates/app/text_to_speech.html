@@ -18,49 +18,65 @@
 </head>
 <body>
     <header class="header">
-        <div class="search-container">
+        {% comment %} <div class="search-container">
             <input type="text" placeholder="Tìm kiếm" class="search-input">
             <button class="search-button">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-        </div>
+        </div> {% endcomment %}
+
+        {% comment %} <div class="search-container">
+            <form method="GET" action="{% url 'search_results' %}" class="search-form">
+                <input type="text" name="q" placeholder="Tìm kiếm" class="search-input" required>
+                <button type="submit" class="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div> {% endcomment %}
+        
 
         <div class="header-content">
-            <ul>
-                
-                <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
+            <ul>    
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
                 <li><a href="{% url 'author' %}">Tác giả</a></li>
-                <li><a href="{% url 'category' %}">Thể loại</a></li>
-                <li><a href="{% url 'login' %}">Đăng nhập</a></li>
-                <li><a href="{% url 'signup' %}">Đăng ký</a></li>
+                <li><a href="{% url 'category' %}">Thể loại</a></li>  
             </ul>
-        {% comment %} <div class="personal-account">
-            <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" alt="personal image" class="image">
-        </div> {% endcomment %}
+        </div>
+        <div class="personal-account">
+            <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" 
+                    alt="personal image" 
+                    class="image" 
+                    id="user-image">
+            <ul class="dropdown-menu" id="dropdown-menu">
+                {% if user.is_authenticated %}
+                    <li><a href="/profile/">Thông tin người dùng</a></li>
+                    <li><a href="/favorite/">Danh sách yêu thích</a></li>
+                    <li><a href="{% url 'text_to_speech' %}">voice</a></li>
+                    <li><a href="/change-password/">Đổi mật khẩu</a></li>
+                    <li><a href="{% url 'logout' %}">Đăng xuất</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Đăng nhập</a></li>
+                    <li><a href="{% url 'signup' %}">Đăng ký</a></li>
+                {% endif %}
+                
+            </ul>   
+        </div>
+        
     </header>
     <h1>Chuyển Văn Bản Thành Giọng Nói</h1>
-    <form method="post">
+    <form method="post"  id="id_text" class ="audi">
         {% csrf_token %}
-        <textarea name="text" rows="5" cols="40" placeholder="Nhập văn bản tại đây..."></textarea><br>
-        <button type="submit">Phát âm thanh</button>
-      </form>
+        {{ form.as_p }}
+        <button type="submit" name="action" value="download">Tải về</button>
+    </form>
       
-      {% if audio_url %}
-        <audio controls>
-          <source src="{{ audio_url }}" type="audio/mpeg">
-          Trình duyệt của bạn không hỗ trợ phát âm thanh.
-        </audio>
-      {% endif %}
       
-      {% if error %}
-        <p style="color: red;">{{ error }}</p>
-      {% endif %}
         {% comment %} {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" name="action" value="play">Phát trực tiếp</button>
         <button type="submit" name="action" value="download">Tải về</button> {% endcomment %}
-    </form>
+    
     
         
       

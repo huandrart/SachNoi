@@ -58,6 +58,7 @@
                 {% if user.is_authenticated %}
                     <li><a href="/profile/">Thông tin người dùng</a></li>
                     <li><a href="/favorite/">Danh sách yêu thích</a></li>
+                    <li><a href="{% url 'text_to_speech' %}">voice</a></li>
                     <li><a href="/change-password/">Đổi mật khẩu</a></li>
                     <li><a href="{% url 'logout' %}">Đăng xuất</a></li>
                 {% else %}
