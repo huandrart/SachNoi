@@ -13,80 +13,59 @@
 <body>
     <!-- header -->
     <header class="header">
-        <div class="search-container">
+        {% comment %} <div class="search-container">
             <input type="text" placeholder="Tìm kiếm" class="search-input">
             <button class="search-button">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-        </div>
+        </div> {% endcomment %}
+
+        {% comment %} <div class="search-container">
+            <form method="GET" action="{% url 'search_results' %}" class="search-form">
+                <input type="text" name="q" placeholder="Tìm kiếm" class="search-input" required>
+                <button type="submit" class="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div> {% endcomment %}
+        
 
         <div class="header-content">
-            <ul>
-                
-                <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
+            <ul>    
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
                 <li><a href="{% url 'author' %}">Tác giả</a></li>
-                <li><a href="{% url 'category' %}">Thể loại</a></li>
-                <li><a href="{% url 'login' %}">Đăng nhập</a></li>
-                <li><a href="{% url 'signup' %}">Đăng ký</a></li>
-    <ul>
-        {% for entry in entries %}
-            <li>
-                {{ entry.title }} - <a href="{% url 'convert_text_to_speech' entry.id %}">Tải xuống</a>
-            </li>
-        {% endfor %}
-    </ul>
-                  
-                
-                {% comment %} <li >
-                    <a href="index.html">
-                        Trang chủ
-                    </a>
-                </li>
-                <li>
-                    <a href="discover.html">
-                        Khám phá
-                    </a>
-                </li>
-                <li>
-                    <a href="author.html">
-                        Tác giả
-                    </a>
-                </li>
-                <li>
-                    <a href="category.html">
-                        Thể loại
-                    </a>
-                </li> {% endcomment %}
+                <li><a href="{% url 'category' %}">Thể loại</a></li>  
             </ul>
         </div>
+
 
         <a href="{% url 'profile' %}">
             <div class="personal-account">
                 <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" alt="personal image" class="image">
             </div>
         </a> 
+        
     </header>
     <!-- end header -->
-
+        {% comment %} {% for entry in entries %}
+            <li>
+                {{ entry.title }} - <a href="{% url 'convert_text_to_speech' entry.id %}">Tải xuống</a>
+            </li>
+        {% endfor %} {% endcomment %}
     <div class="main">
         <div class="NavBar">
             <div class="account-image">
                 <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" alt="Anh dai dien">
             </div>
-            <h3>VuDuyen</h3>
-            <h3>vuthuduyen.2010@gmail.com</h3>
+            <h3>{{request.user}}</h3>
+            <h3>{{request.user.email}}</h3>
             <ul>
                 <li>
-                    <a href="{% url 'book_history' %}" class="page-title">
-                            Sách đã đọc
-                    </a>
-                </li>
-                {% comment %} <li>
-                    <a href="{% url 'favorite' %}">
+                    <a href="/favorite/">
                             Sách yêu thích
                     </a>
-                </li> {% endcomment %}
+                </li>
                 <li>
                     <a href="{% url 'save_book' %}">
                             Sách đã lưu

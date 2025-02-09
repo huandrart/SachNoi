@@ -10,7 +10,7 @@ urlpatterns = [
     path('login.html',views.loginpage, name='login'),
     path('logout/',views.logoutPage, name='logout'),
     path('signup.html',views.signup, name='signup'),
-    path('favorites/',views.favorite, name='favorite'),
+    path('favorite/',views.favorite, name='favorite'),
     path('favorite_books/',views.favorite_books, name='favorite_books'),
     path('profile/',views.profile, name='profile'),
     path('save_book/',views.save_book, name='save_book'),
@@ -18,4 +18,5 @@ urlpatterns = [
     path('book_history/',views.book_history, name='book_history'),
     path('forgot-password/', viewfp.forgot_password, name='forgot_password'),
     path('search/', views.search_results, name='search_results'),
+    path("change-password/", viewfp.change_password, name="change_password"),
 ]
