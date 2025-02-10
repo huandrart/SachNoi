@@ -68,35 +68,54 @@ def account(request):
 
 # view login | signup
 
+
+
 def loginpage(request):
     if request.user.is_authenticated:
-        return redirect('index')  # Nếu người dùng đã đăng nhập, chuyển hướng đến trang chủ.
+        return redirect('index')  # Nếu đã đăng nhập, chuyển hướng về trang chủ
+
     if request.method == "POST":
         name = request.POST.get('username')
         pass1 = request.POST.get('password')
-        user = authenticate(request, username=name, password=pass1)
-        if user is not None:
-            login(request, user)  # Đăng nhập người dùng.
-            return redirect('index')  # Chuyển hướng đến trang chủ.
-        else: messages.info(request, 'Tên đăng nhập hoặc mật khẩu không đúng!')
 
-    context = {}
-    return render(request, 'app/login.html', context)
+        if not name or not pass1:
+            messages.warning(request, 'Vui lòng nhập đầy đủ thông tin!')
+            return redirect('login')
+
+        user = authenticate(request, username=name, password=pass1)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, '🎉 Đăng nhập thành công! Chào mừng bạn trở lại.')
+
+            return redirect('index')  # Chuyển đến index nhưng thông báo vẫn còn
+        else:
+            messages.error(request, '❌ Tên đăng nhập hoặc mật khẩu không đúng!')
+            return redirect('login')
+    
+    return render(request, 'app/login.html')
+
+
 def logoutPage(request):
     logout(request)  # Đăng xuất người dùng.
     return redirect('login')  # Chuyển hướng đến trang đăng nhập.
 
+
+
 def signup(request):
-    form = CreateUserForm()
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Đăng ký thành công!')  
-            return redirect('index')  
-    context = {'form' : form}
-    return render(request,'app/signup.html', context)
+            messages.success(request, 'Đăng ký thành công! Bạn sẽ được chuyển hướng đến trang đăng nhập sau vài giây')
+            return render(request, 'app/signup.html', {'form': CreateUserForm(), 'redirect': True})  
+        else:
+            messages.error(request, "Đăng ký thất bại. Vui lòng kiểm tra lại thông tin.") 
+            # form = CreateUserForm()  
+    else:
+        form = CreateUserForm()
 
+    return render(request, 'app/signup.html', {'form': form})
 
 def search_results(request):
     query = request.GET.get('q', '')
