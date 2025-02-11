@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     containers.forEach(container => {
         const items = Array.from(container.querySelectorAll(".audiobook-item"));
         let sortState = 'default'; 
-        const sortButton = container.previousElementSibling.querySelector("h2");
+        const sortButton = container.previousElementSibling.querySelector("h3");
         if (sortButton) {
             sortButton.addEventListener("click", (e) => {
                 e.preventDefault(); 
