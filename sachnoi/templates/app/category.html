@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/styles_category.css' %}">
+
 </head>
 <body>
     <!-- header -->
@@ -90,9 +91,9 @@
     <div class="container container-one">
         <div class="title" id="tai_chinh">
             <h1>Sách Tài chính</h1>
-            <a href="#">
-                <h3>Sắp xếp</h3>
-            </a>
+            
+                <a href = "#"> <h3 class= "sort-button" data-sort-order="default">Sắp xếp</h3> </a>
+            
         </div>
         
         <div class="audiobook-list">
@@ -124,9 +125,9 @@
         </div>
         <div class="title" id="phat_trien">
             <h1>Phát triển bản thân</h1>
-            <a href="#">
-                <h3>Sắp xếp</h3>
-            </a>
+            
+                <a href = "#"> <h3 class= "sort-button" data-sort-order="default">Sắp xếp</h3> </a>
+            
         </div>
         
         <div class="audiobook-list">
@@ -158,9 +159,8 @@
         </div>
         <div class="title" id="suc_khoe">
             <h1>Sức khỏe</h1>
-            <a href="#">
-                <h3>Sắp xếp</h3>
-            </a>
+           
+                <a href = "#"> <h3 class= "sort-button" data-sort-order="default">Sắp xếp</h3> </a>            
         </div>
         
         <div class="audiobook-list">
@@ -192,9 +192,7 @@
         </div>
         <div class="title" id="xa_hoi">
             <h1>Xã hội</h1>
-            <a href="#">
-                <h3>Sắp xếp</h3>
-            </a>
+                <a href = "#"> <h3 class= "sort-button" data-sort-order="default">Sắp xếp</h3> </a>            
         </div>
        
         <div class="audiobook-list">
@@ -226,9 +224,7 @@
         </div>
         <div class="title" id="tam_sinh_ly">
             <h1>Tâm sinh lý</h1>
-            <a href="#">
-                <h3>Sắp xếp</h3>
-            </a>
+                <a href = "#"> <h3 class= "sort-button" data-sort-order="default">Sắp xếp</h3> </a>            
         </div>
         
         <div class="audiobook-list">
@@ -260,9 +256,7 @@
         </div>
         <div class="title" id="tu_duy">
             <h1>Tư duy</h1>
-            <a href="#">
-                <h3>Sắp xếp</h3>
-            </a>
+                <a href = "#"> <h3 class= "sort-button" data-sort-order="default">Sắp xếp</h3> </a>            
         </div>
         
         <div class="audiobook-list">
@@ -331,5 +325,53 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const containers = document.querySelectorAll(".audiobook-list");
+        
+            containers.forEach(container => {
+                const items = Array.from(container.querySelectorAll(".audiobook-item"));
+                let sortState = 'default';
+                const sortButton = container.previousElementSibling.querySelector("h3.sort-button");
+        
+                if (sortButton) {
+                    sortButton.addEventListener("click", (e) => {
+                        e.preventDefault();
+        
+                        if (sortState === 'default') {
+                            // Sắp xếp theo tên sách (A-Z)
+                            items.sort((a, b) => {
+                                const titleA = a.querySelector(".book-title")?.textContent.trim().toLowerCase() || '';
+                                const titleB = b.querySelector(".book-title")?.textContent.trim().toLowerCase() || '';
+                                return titleA.localeCompare(titleB);
+                            });
+                            sortState = 'asc';
+                        } else if (sortState === 'asc') {
+                            // Sắp xếp theo tên sách (Z-A)
+                            items.sort((a, b) => {
+                                const titleA = a.querySelector(".book-title")?.textContent.trim().toLowerCase() || '';
+                                const titleB = b.querySelector(".book-title")?.textContent.trim().toLowerCase() || '';
+                                return titleB.localeCompare(titleA);
+                            });
+                            sortState = 'desc';
+                        } else {
+                            // mặc định
+                            items.sort(() => 0);
+                            sortState = 'default';
+                        }
+        
+                        // Xóa nội dung hiện tại của container
+                        container.innerHTML = "";
+        
+                        // Thêm các mục đã sắp xếp vào container
+                        items.forEach(item => container.appendChild(item));
+                    });
+                }
+            });
+        });    
+        
+    </script>
+    
 </body>
 </html>
