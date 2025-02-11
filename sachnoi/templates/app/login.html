@@ -1,59 +1,139 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Đăng Nhập </title>
+    <title>Form Đăng Nhập</title>
     
     <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/styles_login.css' %}" />
-    
-    
-    
+
+    <style>
+        .alert-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            display: none;
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .alert-success { background-color: #28a745; }
+        .alert-error { background-color: #dc3545; }
+        .alert-warning { background-color: #ffc107; }
+    </style>
 </head>
 <body>
     <header class="header">
-        
         <div class="header-content">
             <ul>
-                
                 <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
                 <li><a href="{% url 'author' %}">Tác giả</a></li>
                 <li><a href="{% url 'category' %}">Thể loại</a></li>
-               
             </ul>
         </div>
-
     </header>
-    
-    {% if messages %}
-        <div class="alert-container">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+
     <div class="container">
         <div class="box">
-            <form action="" method="POST">
+            <form id="loginForm" action="" method="POST">
                 {% csrf_token %}
                 <h1 class="title">Đăng nhập</h1>
-                <input type="text" name="username" id="name-user" placeholder="Tên đăng nhập">
-                <input type="password" name="password" id="password" placeholder="Mật khẩu">
+                <input type="text" name="username" id="name-user" placeholder="Tên đăng nhập" autocomplete="off">
+                <input type="password" name="password" id="password" placeholder="Mật khẩu" autocomplete="off">
                 <a href="{% url 'forgot_password' %}" class="forgot-password">Quên mật khẩu?</a>
                 <input type="submit" value="Đăng nhập" class="login-box">
                 <div>
-                    <h3>Bạn chưa đăng kí?</h3>
-                    <a  href="{% url 'signup' %}" class="register">Đăng kí</a>
+                    <h3>Bạn chưa đăng ký?</h3>
+                    <a href="{% url 'signup' %}" class="register">Đăng ký</a>
                 </div>
-                
             </form>
         </div>
     </div>
-        
+
+    <!-- Thông báo hiển thị -->
+    <div id="message-container" class="alert-container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let messageContainer = document.getElementById("message-container");
+            let alerts = messageContainer.getElementsByClassName("alert");
+    
+            if (alerts.length > 0) {
+                messageContainer.style.display = "block";
+    
+                setTimeout(() => {
+                    for (let alert of alerts) {
+                        alert.style.opacity = "1";
+                    }
+                }, 100);
+    
+                // Chờ 3 giây trước khi chuyển trang
+                setTimeout(() => {
+                    for (let alert of alerts) {
+                        alert.style.opacity = "0";
+                    }
+                    setTimeout(() => messageContainer.style.display = "none", 500);
+                }, 3000);
+            }
+        });
+    
+        // Kiểm tra form trước khi gửi
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // ⛔ Ngăn gửi form ngay lập tức
+    
+            let username = document.getElementById("name-user").value.trim();
+            let password = document.getElementById("password").value.trim();
+    
+            if (username === "" || password === "") {
+                showAlert("Vui lòng nhập đầy đủ thông tin!", "warning");
+                return;
+            }
+    
+            showAlert("🎉 Đăng nhập thành công! Chuyển hướng...", "success");
+    
+            // ⏳ Chờ 3 giây rồi mới gửi form
+            setTimeout(() => {
+                this.submit();
+            }, 3000);
+        });
+    
+        function showAlert(message, type) {
+            let messageContainer = document.getElementById("message-container");
+            messageContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            messageContainer.style.display = "block";
+    
+            setTimeout(() => {
+                let alert = messageContainer.querySelector(".alert");
+                alert.style.opacity = "1";
+            }, 100);
+    
+            setTimeout(() => {
+                let alert = messageContainer.querySelector(".alert");
+                alert.style.opacity = "0";
+                setTimeout(() => messageContainer.style.display = "none", 500);
+            }, 3000);
+        }
+    </script>
+    
+
+    
 </body>
 </html>
