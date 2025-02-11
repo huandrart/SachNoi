@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/base.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/styles_favorite_book.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/styles_favorite_books.css' %}"/>
 </head>
 <body>
     <!-- header -->
@@ -39,6 +39,15 @@
             </ul>
         </div>
 
+        <div class="bar">
+            <i class="fa-solid fa-bars" id="bar-icon"></i>
+            <ul class="dropdown-menu-bar" id="dropdown-menu-bar">
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'discover' %}">Khám phá</a></li>
+                <li><a href="{% url 'author' %}">Tác giả</a></li>
+                <li><a href="{% url 'category' %}">Thể loại</a></li>
+            </ul>
+        </div>
 
         <a href="{% url 'profile' %}">
             <div class="personal-account">
@@ -61,6 +70,11 @@
             <h3>{{request.user}}</h3>
             <h3>{{request.user.email}}</h3>
             <ul>
+                <li>
+                    <a href="{% url 'book_history' %}" class="page-title">
+                            Sách đã đọc
+                    </a>
+                </li>
                 <li>
                     <a href="/favorite/">
                             Sách yêu thích
@@ -150,6 +164,23 @@
             </div>
         </div>
     </div>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const barIcon = document.getElementById("bar-icon");
+            const dropdownMenuBar = document.getElementById("dropdown-menu-bar");
+    
+            // Hiển thị / ẩn menu khi click vào ảnh
+            barIcon.addEventListener("click", function() {
+                dropdownMenuBar.style.display = dropdownMenuBar.style.display === "block" ? "none" : "block";
+            });
+    
+            // Ẩn menu nếu click ra ngoài
+            document.addEventListener("click", function(event) {
+                if (!barIcon.contains(event.target) && !dropdownMenuBar.contains(event.target)) {
+                    dropdownMenuBar.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
 </html>

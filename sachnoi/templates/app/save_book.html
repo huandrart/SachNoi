@@ -60,6 +60,16 @@
             </ul>
         </div>
 
+        <div class="bar">
+            <i class="fa-solid fa-bars" id="bar-icon"></i>
+            <ul class="dropdown-menu-bar" id="dropdown-menu-bar">
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'discover' %}">Khám phá</a></li>
+                <li><a href="{% url 'author' %}">Tác giả</a></li>
+                <li><a href="{% url 'category' %}">Thể loại</a></li>
+            </ul>
+        </div>
+        
         <a href="{% url 'profile' %}">
             <div class="personal-account">
                 <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" alt="personal image" class="image">
@@ -84,6 +94,11 @@
                 <li>
                     <a href="/favorite/">
                             Sách yêu thích
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'save_book' %}" class="page-title">
+                            Sách đã lưu
                     </a>
                 </li>
             </ul>
@@ -175,6 +190,23 @@
             </div>
         </div>
     </div>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const barIcon = document.getElementById("bar-icon");
+            const dropdownMenuBar = document.getElementById("dropdown-menu-bar");
+    
+            // Hiển thị / ẩn menu khi click vào ảnh
+            barIcon.addEventListener("click", function() {
+                dropdownMenuBar.style.display = dropdownMenuBar.style.display === "block" ? "none" : "block";
+            });
+    
+            // Ẩn menu nếu click ra ngoài
+            document.addEventListener("click", function(event) {
+                if (!barIcon.contains(event.target) && !dropdownMenuBar.contains(event.target)) {
+                    dropdownMenuBar.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
