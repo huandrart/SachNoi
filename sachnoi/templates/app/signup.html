@@ -42,7 +42,8 @@
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
         
                         <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-        
+
+                        
                         <form class="mx-1 mx-md-4" method ="POST">
                         {% csrf_token %}
         
@@ -110,29 +111,74 @@
         </div>
         
         </section>
-    
+        {% if messages %}
+            <div id="success-message" class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1050;">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        
+            <script>
+                setTimeout(function() {
+                    let messageBox = document.getElementById("success-message");
+                    if (messageBox) {
+                        messageBox.style.display = "none";
+                    }
+                }, 3000); 
+            </script>
+        {% endif %}
 
+        {% if redirect %}
+        <script>
+            setTimeout(function() {
+                window.location.href = "{% url 'login' %}";
+            }, 3000); 
+        </script>
+        {% endif %}
 
-    {% comment %} <div class="container">
-        <div class="box">
-            <form action="" method="POST">
-                {% csrf_token %}
-                <h1 class="title">Đăng kí</h1>
-                {{form.as_p}} 
-                <input type="text" name ="form.username" id="name-user" placeholder="Tên đăng nhập">
-                <input type="email" id="email" placeholder="Email">
-                <input type="password" id="password" placeholder="Mật khẩu">
-                 <input type="submit" value="Xác nhận" class="confirm">
-                <div>
-                    <h3>Bạn đã có tài khoản?</h3>
-                    <a href="{% url 'login' %}" class="login">Đăng nhập ngay</a>
-                </div>
-            </form>
-        </div>
-    </div> {% endcomment %}
-    
-     
-    
-
+        <script>
+            document.querySelector("form").addEventListener("submit", function(event) {
+                let password = document.querySelector('input[name="password1"]').value.trim();
+                let confirmPassword = document.querySelector('input[name="password2"]');
+                let username = document.querySelector('input[name="username"]').value.trim();
+                let email = document.querySelector('input[name="email"]').value.trim();
+        
+                // Kiểm tra nếu mật khẩu và nhập lại mật khẩu không khớp
+                if (password !== confirmPassword.value.trim()) {
+                    event.preventDefault(); // Ngăn form submit
+        
+                    // Hiển thị thông báo lỗi
+                    showAlert("Mật khẩu nhập lại không khớp! Vui lòng thử lại.", "error");
+        
+                    // Xóa chỉ ô nhập lại mật khẩu
+                    confirmPassword.value = "";
+                    confirmPassword.focus();
+                    return;
+                }
+        
+                // Nếu mọi thứ ổn, cho phép submit
+            });
+        
+            function showAlert(message, type) {
+                let messageContainer = document.getElementById("success-message");
+        
+                // Nếu chưa có hộp thông báo, tạo mới
+                if (!messageContainer) {
+                    messageContainer = document.createElement("div");
+                    messageContainer.id = "success-message";
+                    messageContainer.className = `alert alert-${type} position-fixed top-0 start-50 translate-middle-x mt-3`;
+                    messageContainer.style.zIndex = "1050";
+                    document.body.appendChild(messageContainer);
+                }
+        
+                messageContainer.innerHTML = message;
+                messageContainer.style.display = "block";
+        
+                setTimeout(() => {
+                    messageContainer.style.display = "none";
+                }, 3000);
+            }
+        </script>
+        
 </body>
 </html>
