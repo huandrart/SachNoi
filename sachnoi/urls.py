@@ -15,6 +15,7 @@ urlpatterns = [
     path('profile/',views.profile, name='profile'),
     path('save_book/',views.save_book, name='save_book'),
     path('account/', views.account, name='account'),
+    path('toggle_favorite/<int:book_id>/', views.toggle_favorite, name='toggle_favorite'),
     path('book_history/',views.book_history, name='book_history'),
     path('forgot-password/', viewfp.forgot_password, name='forgot_password'),
     path('search/', views.search_results, name='search_results'),

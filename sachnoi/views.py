@@ -1,10 +1,11 @@
 from django.shortcuts import render ,redirect , get_object_or_404
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse , JsonResponse
 from django.contrib import messages
 from gtts import gTTS
 from django.shortcuts import render, redirect
-from sachnoi.models import  Books , Authors
+from sachnoi.models import  Books , Authors, Favorite
 from .forms import TextToSpeechForm
 from django.db.models import Q
 from io import BytesIO
@@ -14,12 +15,22 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 # View page 
+
+
 def index(request):
     """
     View để hiển thị danh sách tất cả các sách.
     """
     books = Books.objects.all()  # Lấy tất cả sách từ cơ sở dữ liệu
-    return render(request, 'app/index.html', {'books': books})
+    popular_books = Books.objects.order_by('-popularity')[:5]  # Lấy 5 sách thịnh hành nhất
+    favorite_books = Books.objects.order_by('-favorite_count')[:5]  # Lấy 5 sách yêu thích nhất
+    
+    return render(request, 'app/index.html', {
+        'books': books,
+        'popular_books': popular_books,
+        'favorite_books': favorite_books,
+    })
+
 def book_detail(request, pk):
     """
     View để hiển thị chi tiết một cuốn sách và xử lý input người dùng bằng AJAX.
@@ -117,6 +128,23 @@ def signup(request):
 
     return render(request, 'app/signup.html', {'form': form})
 
+@login_required
+def toggle_favorite(request, book_id):
+    book = get_object_or_404(Books, id=book_id)
+    favorite, created = Favorite.objects.get_or_create(user=request.user, book=book)
+    
+    if not created:
+        favorite.delete()
+        book.favorite_count -= 1
+        book.popularity -= 1
+        book.save()
+        return JsonResponse({'status': 'removed'})
+    else:
+        book.favorite_count += 1
+        book.popularity += 1
+        book.save()
+        return JsonResponse({'status': 'added'})
+
 def search_results(request):
     query = request.GET.get('q', '')
     results = []
@@ -162,3 +190,15 @@ def text_to_speech_view(request):
     else:
         form = TextToSpeechForm()
     return render(request, 'app/text_to_speech.html', {'form': form})
+
+
+def book_detail(request, pk):
+    book = get_object_or_404(Books, pk=pk)
+    is_favorite = False
+    if request.user.is_authenticated:
+        is_favorite = Favorite.objects.filter(user=request.user, book=book).exists()
+    
+    return render(request, 'app/detail.html', {
+        'book': book,
+        'is_favorite': is_favorite,
+    })

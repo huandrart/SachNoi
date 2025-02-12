@@ -8,11 +8,21 @@ from django import forms
 # # Create your models here.
 # #
 
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey('Books', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'book')
+
 class CreateUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
     class Meta:
         model = User
         fields =['username','email','password1','password2']
+
 class TextEntry(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
@@ -66,6 +76,9 @@ class Books(models.Model):
     audio_file = models.FileField(upload_to='audiobooks/', null=True, blank=True)
 
     text_content = models.TextField(blank=True, null=True)
+# 2 trường dưới này thêm để theo dõi số lượt yêu thích và độ phổ biến của sách
+    popularity = models.IntegerField(default=0)  # Thêm trường này
+    favorite_count = models.IntegerField(default=0)  # Thêm trường này
 
     class Meta:
         managed = False

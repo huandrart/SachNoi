@@ -191,12 +191,21 @@
                     <h1>{{book.title}}</h1>
                     <h3>{{book.author.name}}</h3>
                 </div>
-                <div class="icon"> 
+                {% comment %} <div class="icon"> 
                     <input type="checkbox" id="bookmark-toggle">
                     <label for="bookmark-toggle" class="bookmark-btn">
                         <i class="fa-regular fa-bookmark  bookmark-off"></i>
                         <i class="fa-solid fa-bookmark bookmark-on"></i>
                     </label>
+                </div> {% endcomment %}
+
+                <div class="icon">
+                    <form id="favorite-form" method="POST" action="{% url 'toggle_favorite' book.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="bookmark-btn" style="border: none; background: none;">
+                            <i class="{% if is_favorite %}fa-solid{% else %}fa-regular{% endif %} fa-bookmark"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="book-image">
@@ -328,76 +337,118 @@
         });
     </script>
     <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const chatForm = document.getElementById("chat-form");
-  const userMessageInput = document.getElementById("user_message");
-  const chatResponseDiv = document.getElementById("chat-response");
-  const sendButton = document.getElementById("send-button");
+        document.addEventListener("DOMContentLoaded", () => {
+        const chatForm = document.getElementById("chat-form");
+        const userMessageInput = document.getElementById("user_message");
+        const chatResponseDiv = document.getElementById("chat-response");
+        const sendButton = document.getElementById("send-button");
 
-  chatForm.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Ngăn việc refresh trang
-    const userMessage = userMessageInput.value.trim();
+        chatForm.addEventListener("submit", async (e) => {
+            e.preventDefault(); // Ngăn việc refresh trang
+            const userMessage = userMessageInput.value.trim();
 
-    if (userMessage === "") {
-      alert("Vui lòng nhập nội dung trước khi gửi!");
-      return;
-    }
+            if (userMessage === "") {
+            alert("Vui lòng nhập nội dung trước khi gửi!");
+            return;
+            }
 
-    // Disable nút gửi để tránh gửi liên tiếp
-    sendButton.disabled = true;
+            // Disable nút gửi để tránh gửi liên tiếp
+            sendButton.disabled = true;
 
-    // Hiển thị tin nhắn người dùng
-    const userMessageElement = document.createElement("p");
-    userMessageElement.className = "user-message";
-    userMessageElement.textContent = `Bạn: ${userMessage}`;
-    chatResponseDiv.appendChild(userMessageElement);
+            // Hiển thị tin nhắn người dùng
+            const userMessageElement = document.createElement("p");
+            userMessageElement.className = "user-message";
+            userMessageElement.textContent = `Bạn: ${userMessage}`;
+            chatResponseDiv.appendChild(userMessageElement);
 
-    try {
-      // Gửi dữ liệu tới server
-      const response = await fetch(window.location.href, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "X-Requested-With": "XMLHttpRequest",
-          "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
-        },
-        body: new URLSearchParams({ user_message: userMessage }),
-      });
+            try {
+            // Gửi dữ liệu tới server
+            const response = await fetch(window.location.href, {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+                },
+                body: new URLSearchParams({ user_message: userMessage }),
+            });
 
-      if (!response.ok) {
-        throw new Error("Có lỗi xảy ra khi gửi yêu cầu tới server!");
-      }
+            if (!response.ok) {
+                throw new Error("Có lỗi xảy ra khi gửi yêu cầu tới server!");
+            }
 
-      const data = await response.json();
+            const data = await response.json();
 
-      // Hiển thị phản hồi từ chatbot
-      const botMessageElement = document.createElement("p");
-      botMessageElement.className = "bot-response";
-      botMessageElement.textContent = `Vodka BOT: ${data.response}`;
-      chatResponseDiv.appendChild(botMessageElement);
-    } catch (error) {
-      console.error("Error:", error);
+            // Hiển thị phản hồi từ chatbot
+            const botMessageElement = document.createElement("p");
+            botMessageElement.className = "bot-response";
+            botMessageElement.textContent = `Vodka BOT: ${data.response}`;
+            chatResponseDiv.appendChild(botMessageElement);
+            } catch (error) {
+            console.error("Error:", error);
 
-      // Hiển thị thông báo lỗi
-      const errorMessageElement = document.createElement("p");
-      errorMessageElement.className = "error-message";
-      errorMessageElement.textContent =
-        "Có lỗi xảy ra khi kết nối tới chatbot. Vui lòng thử lại sau.";
-      chatResponseDiv.appendChild(errorMessageElement);
-    } finally {
-      // Kích hoạt lại nút gửi và xóa nội dung nhập
-      sendButton.disabled = false;
-      userMessageInput.value = "";
-    }
+            // Hiển thị thông báo lỗi
+            const errorMessageElement = document.createElement("p");
+            errorMessageElement.className = "error-message";
+            errorMessageElement.textContent =
+                "Có lỗi xảy ra khi kết nối tới chatbot. Vui lòng thử lại sau.";
+            chatResponseDiv.appendChild(errorMessageElement);
+            } finally {
+            // Kích hoạt lại nút gửi và xóa nội dung nhập
+            sendButton.disabled = false;
+            userMessageInput.value = "";
+            }
 
-    // Cuộn xuống cuối đoạn chat
-    chatResponseDiv.scrollTop = chatResponseDiv.scrollHeight;
-  });
-});
-
-
-
+            // Cuộn xuống cuối đoạn chat
+            chatResponseDiv.scrollTop = chatResponseDiv.scrollHeight;
+        });
+        });
     </script>
-    
+    <script>
+        {% comment %} document.getElementById('favorite-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const icon = document.querySelector('.bookmark-btn i');
+                if (data.status === 'added') {
+                    icon.classList.replace('fa-regular', 'fa-solid');
+                } else {
+                    icon.classList.replace('fa-solid', 'fa-regular');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }); {% endcomment %}
+        document.getElementById('favorite-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const icon = document.querySelector('.bookmark-btn i');
+                if (data.status === 'added') {
+                    icon.classList.replace('fa-regular', 'fa-solid');
+                } else {
+                    icon.classList.replace('fa-solid', 'fa-regular');
+                }
+                // Cập nhật lại danh sách sách yêu thích và thịnh hành
+                location.reload();  // Tải lại trang để cập nhật danh sách
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 </body>
 </html>

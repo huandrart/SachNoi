@@ -226,6 +226,76 @@
            
         </div>
     </div>
+
+    <!-- ... (phần code hiện tại của bạn) ... -->
+
+
+
+<!-- Phần Sách Thịnh Hành -->
+    <div class="container container-two">
+        <h1 class="for-you-title">Sách Thịnh Hành</h1>
+        <div class="audiobook-list">
+            {% for book in popular_books %}
+            <div class="audiobook audiobook-item">
+                <a href="{% url 'book_detail' book.id %}">
+                    <div class="main for-you-main">
+                        <div class="book-image">
+                            <img src="{{book.cover_image}}" alt="Sach" class="image">
+                        </div>
+                        <div class="book-information">
+                            <h2 class="book-title">{{book.title}}</h2>
+                            <h3 class="author">{{book.author.name}}</h3>
+                        </div>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </div>
+                </a>
+                <div class="sidebar for-you-sidebar">
+                    <div class="book-time">
+                        <i class="fa-regular fa-clock"></i>
+                        <span class="time">2 giờ, 07 phút</span>
+                    </div>
+                    <div class="icon">
+                        <i class="fa-solid fa-circle-play"></i>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Phần Sách Yêu Thích -->
+    <div class="container container-two">
+        <h1 class="for-you-title">Sách Yêu Thích</h1>
+        <div class="audiobook-list">
+            {% for book in favorite_books %}
+            <div class="audiobook audiobook-item">
+                <a href="{% url 'book_detail' book.id %}">
+                    <div class="main for-you-main">
+                        <div class="book-image">
+                            <img src="{{book.cover_image}}" alt="Sach" class="image">
+                        </div>
+                        <div class="book-information">
+                            <h2 class="book-title">{{book.title}}</h2>
+                            <h3 class="author">{{book.author.name}}</h3>
+                        </div>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </div>
+                </a>
+                <div class="sidebar for-you-sidebar">
+                    <div class="book-time">
+                        <i class="fa-regular fa-clock"></i>
+                        <span class="time">2 giờ, 07 phút</span>
+                    </div>
+                    <div class="icon">
+                        <i class="fa-solid fa-circle-play"></i>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+<!-- ... (phần code hiện tại của bạn) ... -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const userImage = document.getElementById("user-image");
