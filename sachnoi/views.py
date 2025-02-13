@@ -65,7 +65,8 @@ def favorite_books(request):
     return render(request,'app/favorite_books.html')
 def account(request):
     return render(request,'app/account.html')
-
+def author_detail(request):
+    return render(request,'app/author_detail.html')
 # view login | signup
 
 

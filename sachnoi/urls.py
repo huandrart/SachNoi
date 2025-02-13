@@ -20,4 +20,5 @@ urlpatterns = [
     path('search/', views.search_results, name='search_results'),
     path("change-password/", viewfp.change_password, name="change_password"),
     path('text_to_speech/', views.text_to_speech_view, name='text_to_speech'),
+    path('author_detail/', views.author_detail, name='author_detail'),
 ]
