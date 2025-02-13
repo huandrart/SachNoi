@@ -1,0 +1,215 @@
+.main-box {
+    width: 100%;
+    margin-top: 120px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-box .author-information {
+    width: 60%;
+}
+
+.main-box .author-information h1 {
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+.main-box .author-information .infor {
+    width: 90%;
+}
+.main-box .author-information .infor p{
+    font-size: 13px;
+}
+
+.main-box .author-information .author-img {
+    width: 90%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.main-box .author-information .author-img .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-box .main_sidebar {
+    width: 35%;
+}
+
+.main-box .main_sidebar h2{
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.main-box .main_sidebar .sidebar-item {
+    width:100%;
+    height: 140px;
+    background: var(--color-three);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.main-box .main_sidebar .sidebar-item .item-image {
+    width: 100px;
+    height: 120px;
+    border-radius: 5%;
+    overflow: hidden;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.main-box .main_sidebar .sidebar-item .item-image .image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-box .main_sidebar .sidebar-item .item-information {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-box .main_sidebar .sidebar-item .item-information .book-name {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 16px;
+}
+
+.main-box .main_sidebar .sidebar-item .item-information .time-item {
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+}   
+
+.main-box .main_sidebar .sidebar-item .item-information .time-item .time{
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.main-box .main_sidebar .sidebar-item .trending-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 15px 20px;
+}
+
+.main-box .main_sidebar .sidebar-item .trending-sidebar i {
+    font-size: 25px;
+}
+
+.sidebar-item {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.sidebar-item:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 1200px) {
+    .main-box .main_sidebar .sidebar-item .item-information {
+        width: 50%;
+    }
+}
+
+@media (max-width: 1028px){
+    .main-box .main_sidebar {
+        width: 40%; 
+    }
+}
+
+@media (max-width: 830px) {
+    .main-box .main_sidebar .sidebar-item .item-image {
+        width: 70px;
+        height: 90px;
+    }
+    .main-box .main_sidebar .sidebar-item {
+        height: 105px;
+    }
+    .main-box .main_sidebar h2{
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    .main-box .main_sidebar .sidebar-item .item-information .book-name {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    .main-box .main_sidebar .sidebar-item .trending-sidebar i {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .main-box {
+        margin-top: 80px;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .main-box .author-information {
+        width: 100%;
+    }
+    .main-box .author-information .infor {
+        width: 100%;
+        margin-bottom: 50px;
+    }
+    .main-box .author-information .author-img {
+        width: 100%;
+        
+    }
+    .main-box .main_sidebar {
+        width: 80%;
+    }
+}
+
+@media (max-width: 460px) {
+    .main-box .main_sidebar {
+        width: 100%;
+    }
+}
+
+@media (max-width: 320px) {
+    .main-box {
+        margin-top: 60px;
+    }
+    .main-box .author-information h1 {
+        font-size: 18px;
+    }
+    .main-box .main_sidebar .sidebar-item .item-image {
+        width: 55px;
+        height: 70px;
+    }
+    .main-box .main_sidebar .sidebar-item {
+        height: 95px;
+    }
+    .main-box .main_sidebar .sidebar-item .item-information .book-name {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+    .main-box .main_sidebar .sidebar-item .trending-sidebar i {
+        font-size: 18px;
+    }
+    .main-box .main_sidebar .sidebar-item .item-information .time-item .time{
+        font-size: 10px;
+        margin-left: 5px;
+    }
+    .main-box .main_sidebar .sidebar-item .trending-sidebar {
+        padding: 8px 8px;
+    }
+}
