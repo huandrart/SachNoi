@@ -4,12 +4,12 @@ from . import views, viewfp
 urlpatterns = [
     path('', views.index, name='index'),  # trang chu
     path('book/<int:pk>/', views.book_detail, name='book_detail'),
-    path('discover.html', views.discover, name='discover'),  
-    path('author.html', views.author, name='author'),  
-    path('category.html', views.category, name='category'),  
-    path('login.html',views.loginpage, name='login'),
+    path('discover/', views.discover, name='discover'),  
+    path('author/', views.author, name='author'),  
+    path('category/', views.category, name='category'),  
+    path('login/',views.loginpage, name='login'),
     path('logout/',views.logoutPage, name='logout'),
-    path('signup.html',views.signup, name='signup'),
+    path('signup/',views.signup, name='signup'),
     path('favorite/',views.favorite, name='favorite'),
     path('favorite_books/',views.favorite_books, name='favorite_books'),
     path('profile/',views.profile, name='profile'),
