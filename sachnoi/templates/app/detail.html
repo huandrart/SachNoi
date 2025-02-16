@@ -279,7 +279,8 @@
                 <div class="sidebar suggestion-sidebar">
                     <div class="book-time">
                         <i class="fa-regular fa-clock"></i>
-                        <span class="time">2 giờ, 07 phút</span>
+                        <span class="time audio-duration" data-src="{{ b.audio_file.url }}">Đang tải...</span>
+
                     </div>
                     <div class="icon">
                         <i class="fa-solid fa-circle-play"></i>
@@ -287,7 +288,7 @@
                 </div>
             </div>
             {% endfor %}
-            
+        </div>   
             
     </div>
     <!-- end section two -->
@@ -398,6 +399,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     </script>
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".audio-duration").forEach(span => {
+                let audio = new Audio(span.dataset.src);
+                audio.addEventListener("loadedmetadata", () => {
+                    let duration = Math.round(audio.duration);
+                    // giải thích tẹo nha cái duration là a dùng để lấy thời gian trong file sách tương ứng ở trên database á
+                    let minutes = Math.floor(duration / 60);
+                    let seconds = duration % 60;
+                    span.textContent = ` ${minutes}:${seconds.toString().padStart(2, "0")}`;
+                });
+            });
+        });
+    </script>
 </body>
 </html>
