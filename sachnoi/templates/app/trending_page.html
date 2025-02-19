@@ -11,7 +11,7 @@
     
     <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/base.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/trending_page.css' %}" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
@@ -42,17 +42,17 @@
 
         <div class="header-content">
             <ul>    
-                <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
                 <li><a href="{% url 'author' %}">Tác giả</a></li>
-                <li><a href="{% url 'category' %}">Thể loại</a></li>   
+                <li><a href="{% url 'category' %}">Thể loại</a></li>  
             </ul>
         </div>
 
         <div class="bar">
             <i class="fa-solid fa-bars" id="bar-icon"></i>
             <ul class="dropdown-menu-bar" id="dropdown-menu-bar">
-                <li class="title-page"><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
                 <li><a href="{% url 'discover' %}">Khám phá</a></li>
                 <li><a href="{% url 'author' %}">Tác giả</a></li>
                 <li><a href="{% url 'category' %}">Thể loại</a></li>
@@ -81,153 +81,71 @@
     </header>
     <!-- end header -->
 
-    <!-- section-1 -->
+    {% comment %} section-one {% endcomment %}
     <div class="container container-one">
-        <div class="main-content">
-            <div class="discover">
-                <h1 class="title">
-                    Khám phá
-                </h1>
-                <!-- {% for book in books %}
-                <li>
-                    <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
-                </li>
-                {% empty %}
-                    <li>Không có sách nào.</li>
-                {% endfor %} -->
-                <div class="discover-list">
-                    <a href="{% url 'category' %}#tai_chinh">
-                        <div class="discover-item">
-                            <i class="fa-solid fa-coins"></i>
-                            <h3 class="items-text">Tài chính</h3>
-                        </div>
-                    </a>
-                    <a href="{% url 'category' %}#phat_trien">
-                        <div class="discover-item">
-                            <i class="fa-solid fa-user-tie"></i>
-                            <h3 class="items-text">Phát triển</h3>
-                        </div>
-                    </a>
-                    <a href="{% url 'category' %}#suc_khoe">
-                        <div class="discover-item">
-                            <i class="fa-solid fa-notes-medical"></i>
-                            <h3 class="items-text">Sức khỏe</h3>
-                        </div>
-                    </a>
-                    <a href="{% url 'category' %}#xa_hoi">
-                        <div class="discover-item">
-                            <i class="fa-solid fa-user-group"></i>
-                            <h3 class="items-text">Xã hội</h3>
-                        </div>
-                    </a>
-                    <a href="{% url 'category' %}#tam_sinh_ly">
-                        <div class="discover-item">
-                            <i class="fa-regular fa-face-laugh-wink"></i>
-                            <h3 class="items-text">Tâm sinh lý</h3>
-                        </div>
-                    </a>
-                    <a href="{% url 'category' %}#tu_duy">
-                        <div class="discover-item">
-                            <i class="fa-regular fa-lightbulb"></i>
-                            <h3 class="items-text">Tư duy</h3>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="trending">
-                <div class="trending-title">
-                    <h1 class="title">Thịnh hành</h1>
-                    <a href="{% url 'trending_page' %}">
-                        <h3 class="sidebar">Xem thêm</h3>
-                    </a>
-                </div>
-                <div class="trending-list">
-                    <a href="#">
-                        <div class="trending-item">
-                            <div class="item-image">
-                                <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alt="Sách" class="image">
-                            </div>
-                            <div class="item-information">
-                                <h1 class="book-name">
-                                    Yêu những điều không hoàn hảo
-                                </h1>
-                                <h3 class="author">
-                                    Hae Min
-                                </h3>
-                                <div class="time-item">
-                                    <i class="fa-regular fa-clock"></i>
-                                    <span class="time">1 giờ, 46 phút</span>
-                                </div>
-                            </div>
-                            <div class="trending-sidebar">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                                <i class="fa-solid fa-circle-play"></i>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="trending-item">
-                            <div class="item-image">
-                                <img src="{% static 'assets/images/chu-nghia-khac-ky-_tb-2023__bia-1.webp' %}" alt="Sách" class="image">
-                            </div>
-                            <div class="item-information">
-                                <h1 class="book-name">
-                                    Chủ nghĩa khắc kỉ
-                                </h1>
-                                <h3 class="author">
-                                    William B.Irvine
-                                </h3>
-                                <div class="time-item">
-                                    <i class="fa-regular fa-clock"></i>
-                                    <span class="time">2 giờ, 35 phút</span>
-                                </div>
-                            </div>
-                            <div class="trending-sidebar">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                                <i class="fa-solid fa-circle-play"></i>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="main-sidebar">
-            <img src="{% static 'assets/images/1.webp' %}" alt="">
+        <h1>Top sách trong tuần</h1>
+        <div class="book-list">
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/chu-nghia-khac-ky-_tb-2023__bia-1.webp' %}" class="image" alt="sach">
+            </a>
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/thien_tai_ben_trai_ke_dien_ben_phai.jpg' %}" class="image" alt="sach">
+            </a>
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/harry_potter.jpg' %}" class="image" alt="sach">
+            </a>
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/tron-len-mai-nha-de-khoc.jpg' %}" class="image" alt="sach">
+            </a>
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/think-and-grow-rich.webp' %}" class="image" alt="sach">
+            </a> 
         </div>
     </div>
+    {% comment %} end section-one {% endcomment %}
 
+    {% comment %} section-two {% endcomment %}
     <div class="container container-two">
-        <h1 class="for-you-title">Dành cho bạn</h1>
-        <div class="audiobook-list">
-            {%for book in books %}
-            <div class="audiobook audiobook-item">
-                <a href="{% url 'book_detail' book.id %}">
-                    <div class="main for-you-main">
-                        <div class="book-image">
-                            <img src="{{book.cover_image}}" alt="Sach" class="image">
-                        </div>
-                        <div class="book-information">
-                            <h2 class="book-title">{{book.title}}</h2>
-                            <h3 class="author">{{book.author.name}}</h3>
-                        </div>
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                    </div>
-                </a>
-                <div class="sidebar for-you-sidebar">
-                    <div class="book-time">
-                        <i class="fa-regular fa-clock"></i>
-                        <span class="time audio-duration" data-src="{{ book.audio_file.url }}"> Đang tải...</span>
-                        
-                    </div>
-                    <div class="icon">
-                        <i class="fa-solid fa-circle-play"></i>
-                    </div>
+        <h1>Tác giả được nghe nhiều nhất</h1>
+        <div class="author-list">
+            <a href="#" class="author-item">
+                <div class="order">1</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/Nguyen_Nhat_Anh.jpeg' %}" alt="tac-gia" class="image">
                 </div>
-            </div>
-            {% endfor %}
-           
+                <div class="author-name">Nguyễn Nhật Ánh</div>
+            </a>
+            <a href="#" class="author-item">
+                <div class="order">2</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/J.K.Rowling.jpeg' %}" alt="tac-gia" class="image">
+                </div>
+                <div class="author-name">J.K.Rowling</div>
+            </a>
+            <a href="#" class="author-item">
+                <div class="order">3</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/Paulo_Coelho.webp' %}" alt="tac-gia" class="image">
+                </div>
+                <div class="author-name">Paulo Coelho</div>
+            </a>
+            <a href="#" class="author-item">
+                <div class="order">4</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/Phan_Van_Truong.jpeg' %}" alt="tac-gia" class="image">
+                </div>
+                <div class="author-name">Phan Văn Trường</div>
+            </a>
+            <a href="#" class="author-item">
+                <div class="order">5</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/Tran_Dang_Khoa.jpg' %}" alt="tac-gia" class="image">
+                </div>
+                <div class="author-name">Trần Đăng Khoa</div>
+            </a>
         </div>
     </div>
+    {% comment %} end section-two {% endcomment %}
     <footer> 
         <div  class="footer-content">
             <div class="quote">

@@ -67,6 +67,8 @@ def account(request):
     return render(request,'app/account.html')
 def author_detail(request):
     return render(request,'app/author_detail.html')
+def trending_page(request):
+    return render(request,'app/trending_page.html')
 # view login | signup
 
 
