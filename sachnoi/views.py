@@ -40,6 +40,11 @@ def book_detail(request, pk):
 def author(request):
     author = Authors.objects.all().distinct()
     return render(request,'app/author.html',{'author':author})
+def author_detail(request, id):
+    author = get_object_or_404(Authors, id=id)
+    # author = Authors.objects.get(id=id)
+    book = Books.objects.filter(author=author)  # Lấy tất cả sách của tác giả này
+    return render(request, 'app/author_detail.html', {'author': author , 'book':book})
 def category(request):
     books1 = Books.objects.all().filter(category_id=1)
     books2 = Books.objects.all().filter(category_id=2)
@@ -65,8 +70,8 @@ def favorite_books(request):
     return render(request,'app/favorite_books.html')
 def account(request):
     return render(request,'app/account.html')
-def author_detail(request):
-    return render(request,'app/author_detail.html')
+# def author_detail(request):
+#     return render(request,'app/author_detail.html')
 def trending_page(request):
     return render(request,'app/trending_page.html')
 # view login | signup

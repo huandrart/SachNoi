@@ -66,10 +66,11 @@
         
         <div class="authors-list">
             {% for author in author %}
+            <a href="{{author.id}}">
             <div class="author-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgYegi1oJBIF3nzh_02dZ-zoi80N3j-soMumEVrwDQOOGnyhuBBF0zk8OjMvq_OvfvaRBWFg-YFQAkFMFi9ZByx7eejnd6Pamq8w45CnA9IzVKM4WBD36H-SzYVnek2B4Js_ol6k66U75ocOZM8tPxSLw6lEmz5wQ9TA2A6vHTN86L2w2_FyrTsvUKvVa8/w320/dan-norris.webp" alt="Tác giả 1" class="author-img">
+                <img src="{{author.img}}" alt="Tác giả 1" class="author-img">
                 <p class="author-name">{{author.name}}</p>
-            </div>{% endfor %}
+            </div></a>{% endfor %}
 
         </div>
 

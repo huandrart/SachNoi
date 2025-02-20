@@ -64,9 +64,9 @@
     <div class="main-box container">
         <div class="author-information">
             <div class="author-img">
-                <img src="{% static 'assets/images/Nguyen_Nhat_Anh.jpeg' %}" class="image">
+                <img src="{{author.img}}" class="image">
             </div>
-            <h1>Nguyễn Nhật Ánh</h1>
+            <h1>{{author.name}}</h1>
             <div class="infor">
                 <p>Nguyễn Nhật Ánh là một trong những nhà văn tiêu biểu của Việt Nam, đặc biệt nổi tiếng với những tác phẩm viết về tuổi thơ, tình bạn và tình yêu tuổi học trò. Ông sinh ngày 7 tháng 5 năm 1955 tại Quảng Nam và bắt đầu sự nghiệp văn chương từ những năm 1980. Với phong cách viết nhẹ nhàng, hồn nhiên nhưng đầy sâu sắc, ông đã trở thành một tác giả gắn bó với nhiều thế hệ độc giả. Những tác phẩm của ông không chỉ phản ánh chân thực những kỷ niệm đẹp của tuổi học trò mà còn mang đến những bài học ý nghĩa về cuộc sống, tình cảm gia đình và giá trị của tình bạn.</p>
                 <p>Trong suốt sự nghiệp của mình, Nguyễn Nhật Ánh đã sáng tác rất nhiều tác phẩm thành công, điển hình như Kính vạn hoa, Cho tôi xin một vé đi tuổi thơ, Mắt biếc, Cô gái đến từ hôm qua và Tôi thấy hoa vàng trên cỏ xanh. Mỗi câu chuyện ông viết đều mang đậm dấu ấn của một thời tuổi trẻ trong sáng, hồn nhiên nhưng cũng đầy những nỗi niềm suy tư. Đặc biệt, tác phẩm Cho tôi xin một vé đi tuổi thơ đã đạt nhiều giải thưởng lớn và được dịch ra nhiều ngôn ngữ, giúp văn học Việt Nam đến gần hơn với bạn đọc quốc tế. Ngoài ra, nhiều tác phẩm của ông cũng đã được chuyển thể thành phim và nhận được sự yêu thích của đông đảo khán giả.</p>
@@ -75,29 +75,31 @@
         </div>
         <div class="main_sidebar">
             <h2>Những tác phẩm nổi bật</h2>
-            <a href="#">
+            {% for book in book %}
+            <a href="{% url 'book_detail' book.id %}">
                 <div class="sidebar-item">
                     <div class="item-image">
-                        <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alt="Sách" class="image">
-                    </div>
-                    <div class="item-information">
+                        <img src="{{book.cover_image}}" alt="Sách" class="image">
+                    </div>  
+                    <d  iv class="item-information">
                         <h1 class="book-name">
-                            Yêu những điều không hoàn hảo
+                            {{book.title}}
                         </h1>
                         <h3 class="author">
-                            Hae Min
+                            {{book.author.name}}
                         </h3>
                         <div class="time-item">
                             <i class="fa-regular fa-clock"></i>
-                            <span class="time">1 giờ, 46 phút</span>
+                            <span class="time"></span>
                         </div>
-                    </div>
+                    </d>
                     <div class="trending-sidebar">
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                         <i class="fa-solid fa-circle-play"></i>
                     </div>
                 </div>
             </a>
+            {% endfor %}
         </div>
     </div>
 

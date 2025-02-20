@@ -26,7 +26,8 @@ class TextEntry(models.Model):
 class Authors(models.Model):
     name = models.CharField(max_length=255)
     bio = models.TextField(blank=True, null=True)
-
+    img = models.CharField(max_length=255, blank=True, null=True)
+    
     class Meta:
         managed = False
         db_table = 'Authors'
