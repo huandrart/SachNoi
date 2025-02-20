@@ -7,7 +7,30 @@ from django import forms
 
 # # Create your models here.
 # #
+class Trending(models.Model):
+    book = models.ForeignKey('Books', on_delete=models.CASCADE)
+    views = models.IntegerField(default=0)
+    date = models.DateField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.book.title} - {self.views} views"
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey('Books', on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'book')
+
+
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.book.title}"
+        
 class CreateUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
     class Meta:

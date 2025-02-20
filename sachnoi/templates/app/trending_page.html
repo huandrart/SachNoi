@@ -82,7 +82,41 @@
     <!-- end header -->
 
     {% comment %} section-one {% endcomment %}
+    
     <div class="container container-one">
+        <h1>Thịnh hành hôm nay</h1>
+        <ul>
+            {% for trend in trending_today %}
+                <li>{{ trend.book.title }} - {{ trend.views }} lượt xem</li>
+                <a href="{{ book.get_absolute_url }}" class="book-item">
+                    <img src="{{ book.cover_image }}" class="image" alt="sach">
+                    <h3>{{ book.title }}</h3>
+                </a>
+            {% endfor %}
+        </ul>
+
+        <h1>Thịnh hành tuần này</h1>
+        <ul>
+            {% for trend in trending_week %}
+                <li>{{ trend.book.title }} - {{ trend.views }} lượt xem</li>
+                <a href="{{ book.get_absolute_url }}" class="book-item">
+                    <img src="{{ book.cover_image }}" class="image" alt="sach">
+                    <h3>{{ book.title }}</h3>
+                </a>
+            {% endfor %}
+        </ul>
+
+        <h1>Thịnh hành tháng này</h1>
+        <ul>
+            {% for trend in trending_month %}
+                <li>{{ trend.book.title }} - {{ trend.views }} lượt xem</li>
+
+                <a href="{{ book.get_absolute_url }}" class="book-item">
+                    <img src="{{ book.cover_image }}" class="image" alt="sach">
+                    <h3>{{ book.title }}</h3>
+                </a>
+            {% endfor %}
+        </ul>
         <h1>Top sách trong tuần</h1>
         <div class="book-list">
             <a href="#" class="book-item">

@@ -16,7 +16,14 @@
 <body>
     <!-- header -->
     <header class="header">
-
+        <div class="search-container">
+            <form method="GET" action="{% url 'search_results' %}" class="search-form">
+                <input type="text" name="q" placeholder="Tìm kiếm" class="search-input" required>
+                <button type="submit" class="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
         <div class="header-content">
             <ul>
                 <li><a href="{% url 'index' %}">Trang chủ</a></li>

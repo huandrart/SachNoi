@@ -22,4 +22,6 @@ urlpatterns = [
     path('text_to_speech/', views.text_to_speech_view, name='text_to_speech'),
     path('author_detail/', views.author_detail, name='author_detail'),
     path('trending_page/', views.trending_page, name='trending_page'),
+    path('toggle_favorite/<int:book_id>/', views.toggle_favorite, name='toggle_favorite'),
+    path('download_book/<int:book_id>/', views.download_book, name='download_book'),
 ]

@@ -251,10 +251,6 @@
     </div>
     
 
-
-
-
-
 <!-- Chatbot  -->
 
 
@@ -447,6 +443,33 @@ document.addEventListener("DOMContentLoaded", () => {
                     let seconds = duration % 60;
                     span.textContent = ` ${minutes}:${seconds.toString().padStart(2, "0")}`;
                 });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const bookmarkToggle = document.getElementById("bookmark-toggle");
+        
+            bookmarkToggle.addEventListener("change", function () {
+                const bookId = "{{ book.id }}";
+                const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+        
+                fetch(`/toggle_favorite/${bookId}/`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": csrfToken,
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "added") {
+                        alert("Đã thêm vào danh sách yêu thích!");
+                    } else if (data.status === "removed") {
+                        alert("Đã xóa khỏi danh sách yêu thích!");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
             });
         });
     </script>

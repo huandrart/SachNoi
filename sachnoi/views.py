@@ -3,10 +3,12 @@ from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse , JsonResponse
 from django.contrib import messages
 from gtts import gTTS
+from datetime import datetime, timedelta
+
 from django.shortcuts import render, redirect
 from sachnoi.models import  Books , Authors
 from .forms import TextToSpeechForm
-from django.db.models import Q
+from django.db.models import Q, Count
 from io import BytesIO
 from . models import *
 import json
@@ -165,3 +167,56 @@ def text_to_speech_view(request):
     else:
         form = TextToSpeechForm()
     return render(request, 'app/text_to_speech.html', {'form': form})
+
+
+
+def trending_page(request):
+    today = datetime.now().date()
+
+    # Sách thịnh hành theo ngày
+    trending_today = Trending.objects.filter(date=today).order_by('-views')[:10]
+
+    # Sách thịnh hành theo tuần
+    week_start = today - timedelta(days=7)
+    trending_week = Trending.objects.filter(date__range=[week_start, today]).order_by('-views')[:10]
+
+    # Sách thịnh hành theo tháng
+    month_start = today.replace(day=1)
+    trending_month = Trending.objects.filter(date__range=[month_start, today]).order_by('-views')[:10]
+
+    return render(request, 'app/trending_page.html', {
+        'trending_today': trending_today,
+        'trending_week': trending_week,
+        'trending_month': trending_month,
+    })
+def toggle_favorite(request, book_id):
+    if request.method == "POST" and request.user.is_authenticated:
+        book = get_object_or_404(Books, id=book_id)
+        user = request.user
+
+        # Kiểm tra nếu sách đã có trong danh sách yêu thích
+        if UserBooks.objects.filter(user=user, book=book).exists():
+            UserBooks.objects.filter(user=user, book=book).delete()
+            return JsonResponse({'status': 'removed'})
+        else:
+            UserBooks.objects.create(user=user, book=book)
+            return JsonResponse({'status': 'added'})
+
+    return JsonResponse({'status': 'error'}, status=400)
+def download_book(request, book_id):
+    if request.user.is_authenticated:
+        book = get_object_or_404(Books, id=book_id)
+        UserBooks.objects.get_or_create(user=request.user, book=book)
+        # Logic tải sách xuống
+        return redirect(book.audio_file.url)
+    return redirect('login')
+def search_results(request):
+    query = request.GET.get('q', '')
+    results = []
+    if query:
+        results = Books.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(author__name__icontains=query)
+        )
+    return render(request, 'app/search_results.html', {'query': query, 'results': results})
