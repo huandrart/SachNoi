@@ -1,10 +1,9 @@
 from django.shortcuts import render ,redirect , get_object_or_404
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate,login,logout, get_user_model
 from django.http import HttpResponse , JsonResponse
 from django.contrib import messages
 from gtts import gTTS
 from datetime import datetime, timedelta
-
 from django.shortcuts import render, redirect
 from sachnoi.models import  Books , Authors
 from .forms import TextToSpeechForm
@@ -16,12 +15,28 @@ from django.contrib.auth.forms import UserCreationForm
 from .chatbot_main import ask_bloom
 
 # View page 
+
+
 def index(request):
     """
-    View để hiển thị danh sách tất cả các sách.
+    View hiển thị danh sách sách thịnh hành và sách mới nhất.
     """
-    books = Books.objects.all()  # Lấy tất cả sách từ cơ sở dữ liệu
-    return render(request, 'app/index.html', {'books': books})
+    books = Books.objects.all()  # Lấy tất cả sách
+    today = datetime.now().date()
+
+    # Lấy sách thịnh hành theo ngày
+    trending_today = Trending.objects.filter(date=today).order_by('-views')[:5]
+
+    return render(request, 'app/index.html', {
+        'books': books,
+        'trending_today': trending_today,
+    })
+# def index(request):
+#     """
+#     View để hiển thị danh sách tất cả các sách.
+#     """
+#     books = Books.objects.all()  # Lấy tất cả sách từ cơ sở dữ liệu
+#     return render(request, 'app/index.html', {'books': books})
 def book_detail(request, pk):
     """
     View để hiển thị chi tiết một cuốn sách và xử lý input người dùng bằng AJAX.
@@ -64,7 +79,17 @@ def save_book(request):
 def book_history(request):
     return render(request,'app/book_history.html')
 def favorite_books(request):
-    return render(request,'app/favorite_books.html')
+    user = request.user
+    if user.is_authenticated:
+        # Lấy danh sách sách yêu thích
+        favorite_books = Favorite.objects.filter(user=user)
+
+        return render(request, 'app/favorite_books.html', {
+            'favorite_books': favorite_books,
+        })
+    else:
+        return redirect('login')
+    # return render(request,'app/favorite_books.html')
 def account(request):
     return render(request,'app/account.html')
 def author_detail(request):
@@ -169,7 +194,6 @@ def text_to_speech_view(request):
     return render(request, 'app/text_to_speech.html', {'form': form})
 
 
-
 def trending_page(request):
     today = datetime.now().date()
 
@@ -189,6 +213,7 @@ def trending_page(request):
         'trending_week': trending_week,
         'trending_month': trending_month,
     })
+
 def toggle_favorite(request, book_id):
     if request.method == "POST" and request.user.is_authenticated:
         book = get_object_or_404(Books, id=book_id)
@@ -210,6 +235,50 @@ def download_book(request, book_id):
         # Logic tải sách xuống
         return redirect(book.audio_file.url)
     return redirect('login')
+
+def book_history(request):
+    user = request.user
+    if user.is_authenticated:
+        # Lấy sách đang đọc dở
+        
+        try:
+            User = get_user_model()  # Lấy model user mặc định của Django
+            user_instance = User.objects.get(username=user)  # Lấy user từ DB
+
+            reading_books = UserBooks.objects.filter(user=user_instance, finished_at__isnull=True)
+
+
+            # Lấy sách đã đọc xong
+            finished_books = UserBooks.objects.filter(user=user_instance, finished_at__isnull=False)
+
+            return render(request, 'app/book_history.html', {
+                'reading_books': reading_books,
+                'finished_books': finished_books,
+            })
+        except Users.DoesNotExist:
+            # Nếu không tìm thấy người dùng trong bảng Users tùy chỉnh
+            return HttpResponse("Người dùng không tồn tại trong hệ thống.", status=404)
+    else:
+        return redirect('login')
+    
+def save_book(request):
+    if request.user.is_authenticated:
+        try:
+            # Lấy instance của bảng Users tùy chỉnh dựa trên request.user
+            custom_user = get_object_or_404(Users, username=request.user.username)
+
+            # Lấy danh sách sách đã lưu
+            saved_books = UserBooks.objects.filter(user=custom_user)
+
+            return render(request, 'app/save_book.html', {
+                'saved_books': saved_books,
+            })
+        except Users.DoesNotExist:
+            # Nếu không tìm thấy người dùng trong bảng Users tùy chỉnh
+            return HttpResponse("Người dùng không tồn tại trong hệ thống.", status=404)
+    else:
+        return redirect('login')
+
 def search_results(request):
     query = request.GET.get('q', '')
     results = []

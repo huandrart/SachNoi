@@ -103,7 +103,7 @@
                 </li>
             </ul>
         </div>
-        <div class="container-one">
+        {% comment %} <div class="container-one">
             <div class="content">
                 <a href="#">
                     <div class="book-items">
@@ -187,6 +187,25 @@
                     </div>
                 </a>
                 
+            </div>
+        </div> {% endcomment %}
+        <div class="container-one">
+            <div class="content">
+                {% if saved_books %}
+                    {% for user_book in saved_books %}
+                    <a href="{{ user_book.book.get_absolute_url }}">
+                        <div class="book-items">
+                            <div class="book-image">
+                                <img src="{{ user_book.book.cover_image }}" alt="Book Cover">
+                            </div>
+                            <h2>{{ user_book.book.title }}</h2>
+                            <h3>{{ user_book.book.author.name }}</h3>
+                        </div>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <p>Bạn chưa lưu sách nào.</p>
+                {% endif %}
             </div>
         </div>
     </div>

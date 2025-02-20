@@ -134,6 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
+
 # settings.py
 
 # Cấu hình email

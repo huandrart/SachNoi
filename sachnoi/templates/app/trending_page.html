@@ -85,55 +85,50 @@
     
     <div class="container container-one">
         <h1>Thịnh hành hôm nay</h1>
-        <ul>
+        <div class="book-list">
             {% for trend in trending_today %}
-                <li>{{ trend.book.title }} - {{ trend.views }} lượt xem</li>
-                <a href="{{ book.get_absolute_url }}" class="book-item">
-                    <img src="{{ book.cover_image }}" class="image" alt="sach">
-                    <h3>{{ book.title }}</h3>
+            <div class="book-item">
+                <a href="{{ trend.book.get_absolute_url }}">
+                    <img src="{{ trend.book.cover_image }}" alt="{{ trend.book.title }}" class="image">
                 </a>
+                <h3 class="book-title">{{ trend.book.title }}</h3>
+                <p class="book-views">
+                    <i class="fa-solid fa-eye"></i> {{ trend.views }} lượt xem
+                </p>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
 
         <h1>Thịnh hành tuần này</h1>
-        <ul>
-            {% for trend in trending_week %}
-                <li>{{ trend.book.title }} - {{ trend.views }} lượt xem</li>
-                <a href="{{ book.get_absolute_url }}" class="book-item">
-                    <img src="{{ book.cover_image }}" class="image" alt="sach">
-                    <h3>{{ book.title }}</h3>
-                </a>
-            {% endfor %}
-        </ul>
-
-        <h1>Thịnh hành tháng này</h1>
-        <ul>
-            {% for trend in trending_month %}
-                <li>{{ trend.book.title }} - {{ trend.views }} lượt xem</li>
-
-                <a href="{{ book.get_absolute_url }}" class="book-item">
-                    <img src="{{ book.cover_image }}" class="image" alt="sach">
-                    <h3>{{ book.title }}</h3>
-                </a>
-            {% endfor %}
-        </ul>
-        <h1>Top sách trong tuần</h1>
         <div class="book-list">
-            <a href="#" class="book-item">
-                <img src="{% static 'assets/images/chu-nghia-khac-ky-_tb-2023__bia-1.webp' %}" class="image" alt="sach">
-            </a>
-            <a href="#" class="book-item">
-                <img src="{% static 'assets/images/thien_tai_ben_trai_ke_dien_ben_phai.jpg' %}" class="image" alt="sach">
-            </a>
-            <a href="#" class="book-item">
-                <img src="{% static 'assets/images/harry_potter.jpg' %}" class="image" alt="sach">
-            </a>
-            <a href="#" class="book-item">
-                <img src="{% static 'assets/images/tron-len-mai-nha-de-khoc.jpg' %}" class="image" alt="sach">
-            </a>
-            <a href="#" class="book-item">
-                <img src="{% static 'assets/images/think-and-grow-rich.webp' %}" class="image" alt="sach">
-            </a> 
+            {% for trend in trending_week %}
+            <div class="book-item">
+                <a href="{{ trend.book.get_absolute_url }}">
+                    <img src="{{ trend.book.cover_image }}" alt="{{ trend.book.title }}" class="image">
+                </a>
+                <h3 class="book-title">{{ trend.book.title }}</h3>
+                <p class="book-views">
+                    <i class="fa-solid fa-eye"></i> {{ trend.views }} lượt xem
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    
+        <h1>Thịnh hành tháng này</h1>
+        <div class="book-list">
+            {% for trend in trending_month %}
+            <div class="book-item">
+                <a href="{{ trend.book.get_absolute_url }}">
+                    <div class="image-container">
+                        <img src="{{ trend.book.cover_image }}" alt="{{ trend.book.title }}" class="image">
+                        <div class="views-icon">
+                            <i class="fa-solid fa-eye"></i> {{ trend.views }}
+                        </div>
+                    </div>
+                </a>
+                <h3 class="book-title">{{ trend.book.title }}</h3>
+            </div>
+            {% endfor %}
         </div>
     </div>
     {% comment %} end section-one {% endcomment %}

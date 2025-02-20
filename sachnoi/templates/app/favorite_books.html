@@ -82,7 +82,7 @@
                 </li>
             </ul>
         </div>
-        <div class="container-one">
+        {% comment %} <div class="container-one">
             <div class="content">
                 <a href="#">
                     <div class="book-items">
@@ -183,6 +183,25 @@
                         <h3>Hae Min</h3>
                     </div>
                 </a>
+            </div>
+        </div> {% endcomment %}
+        <div class="container-one">
+            <div class="content">
+                {% if favorite_books %}
+                    {% for favorite in favorite_books %}
+                    <a href="{{ favorite.book.get_absolute_url }}">
+                        <div class="book-items">
+                            <div class="book-image">
+                                <img src="{{ favorite.book.cover_image }}" alt="Book Cover">
+                            </div>
+                            <h2>{{ favorite.book.title }}</h2>
+                            <h3>{{ favorite.book.author.name }}</h3>
+                        </div>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <p>Bạn chưa thêm sách nào vào danh sách yêu thích.</p>
+                {% endif %}
             </div>
         </div>
     </div>

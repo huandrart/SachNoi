@@ -74,79 +74,108 @@
             </ul>
         </div>
         <div class="container-one">
+            {% comment %} <div class="content">
+                <a href="#">
+                    <div class="book-items">
+                        <div class="book-image">
+                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                        </div>
+                        <h2>Yêu những điều không hoàn hảo</h2>
+                        <h3>Hae Min</h3>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="book-items">
+                        <div class="book-image">
+                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                        </div>
+                        <h2>Yêu những điều không hoàn hảo</h2>
+                        <h3>Hae Min</h3>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="book-items">
+                        <div class="book-image">
+                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                        </div>
+                        <h2>Yêu những điều không hoàn hảo</h2>
+                        <h3>Hae Min</h3>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="book-items">
+                        <div class="book-image">
+                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                        </div>
+                        <h2>Yêu những điều không hoàn hảo</h2>
+                        <h3>Hae Min</h3>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="book-items">
+                        <div class="book-image">
+                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                        </div>
+                        <h2>Yêu những điều không hoàn hảo</h2>
+                        <h3>Hae Min</h3>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="book-items">
+                        <div class="book-image">
+                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                        </div>
+                        <h2>Yêu những điều không hoàn hảo</h2>
+                        <h3>Hae Min</h3>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="book-items">
+                        <div class="book-image">
+                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                        </div>
+                        <h2>Yêu những điều không hoàn hảo</h2>
+                        <h3>Hae Min</h3>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="book-items">
+                        <div class="book-image">
+                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                        </div>
+                        <h2>Yêu những điều không hoàn hảo</h2>
+                        <h3>Hae Min</h3>
+                    </div>
+                </a>
+            </div> {% endcomment %}
+            <h1>Sách đang đọc</h1>
             <div class="content">
-                <a href="#">
+                {% for user_book in reading_books %}
+                <a href="{{ user_book.book.get_absolute_url }}">
                     <div class="book-items">
                         <div class="book-image">
-                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                            <img src="{{ user_book.book.cover_image }}" alt="Book Cover">
                         </div>
-                        <h2>Yêu những điều không hoàn hảo</h2>
-                        <h3>Hae Min</h3>
+                        <h2>{{ user_book.book.title }}</h2>
+                        <h3>{{ user_book.book.author.name }}</h3>
                     </div>
                 </a>
-                <a href="#">
+                {% endfor %}
+            </div>
+
+            <h1>Sách đã đọc xong</h1>
+            <div class="content">
+                {% for user_book in finished_books %}
+                <a href="{{ user_book.book.get_absolute_url }}">
                     <div class="book-items">
                         <div class="book-image">
-                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
+                            <img src="{{ user_book.book.cover_image }}" alt="Book Cover">
                         </div>
-                        <h2>Yêu những điều không hoàn hảo</h2>
-                        <h3>Hae Min</h3>
+                        <h2>{{ user_book.book.title }}</h2>
+                        <h3>{{ user_book.book.author.name }}</h3>
                     </div>
                 </a>
-                <a href="#">
-                    <div class="book-items">
-                        <div class="book-image">
-                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
-                        </div>
-                        <h2>Yêu những điều không hoàn hảo</h2>
-                        <h3>Hae Min</h3>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="book-items">
-                        <div class="book-image">
-                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
-                        </div>
-                        <h2>Yêu những điều không hoàn hảo</h2>
-                        <h3>Hae Min</h3>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="book-items">
-                        <div class="book-image">
-                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
-                        </div>
-                        <h2>Yêu những điều không hoàn hảo</h2>
-                        <h3>Hae Min</h3>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="book-items">
-                        <div class="book-image">
-                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
-                        </div>
-                        <h2>Yêu những điều không hoàn hảo</h2>
-                        <h3>Hae Min</h3>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="book-items">
-                        <div class="book-image">
-                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
-                        </div>
-                        <h2>Yêu những điều không hoàn hảo</h2>
-                        <h3>Hae Min</h3>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="book-items">
-                        <div class="book-image">
-                            <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alr="sach">
-                        </div>
-                        <h2>Yêu những điều không hoàn hảo</h2>
-                        <h3>Hae Min</h3>
-                    </div>
-                </a>
+                {% endfor %} 
             </div>
         </div>
     </div>
