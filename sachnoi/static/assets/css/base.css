@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Island+Moments&display=swap');
 
 :root {
     --color-one: #F9F2F5;
@@ -568,3 +569,87 @@ h3 {
 #id_text .audi{
     margin-top: 100px;
 }
+
+
+/* footer */
+footer {
+    background: var(--color-one);
+    margin-top: 120px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 0px;
+}
+
+.footer-content .quote {
+    text-align: center;
+    font-family: "Island Moments", serif;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.footer-content .member h3 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.footer-content .member ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-content .member ul li {
+    font-size: 12px;
+}
+
+.footer-content .contact {
+    font-size: 12px;
+}
+
+.footer-content .contact p{
+    margin: 0;
+}
+
+.footer-content .contact ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.end-footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 30px;
+    padding: 5px 0px;
+}
+
+@media (max-width: 1200px) {
+    .footer-content .quote {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 1028px) {
+    .footer-content {
+        flex-wrap: wrap;
+    }
+    .footer-content .quote {
+        width: 90%;
+        margin-bottom: 50px;
+    }
+    .end-footer {
+        margin-top: 0px;
+    }
+}
+
+@media (max-width: 640px) { 
+    .footer-content .quote {
+        margin-bottom: 20px;
+    } 
+    .footer-content .member {
+        margin-bottom: 20px;
+    }
+}
+/* end footer */

@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/styles_author_detail.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+    <!-- header -->
+    <header class="header">
+        <div class="header-content">
+            <ul>    
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'discover' %}">Khám phá</a></li>
+                <li><a href="{% url 'author' %}">Tác giả</a></li>
+                <li><a href="{% url 'category' %}">Thể loại</a></li>  
+            </ul>
+        </div>
+
+        <div class="bar">
+            <i class="fa-solid fa-bars" id="bar-icon"></i>
+            <ul class="dropdown-menu-bar" id="dropdown-menu-bar">
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'discover' %}">Khám phá</a></li>
+                <li><a href="{% url 'author' %}">Tác giả</a></li>
+                <li><a href="{% url 'category' %}">Thể loại</a></li>
+            </ul>
+        </div>
+
+        <div class="personal-account">
+            <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" 
+                 alt="personal image" 
+                 class="image" 
+                 id="user-image">
+            <ul class="dropdown-menu" id="dropdown-menu">
+                {% if user.is_authenticated %}
+                    <li><a href="/profile/">Thông tin người dùng</a></li>
+                    <li><a href="/favorite/">Danh sách yêu thích</a></li>
+                    <li><a href="{% url 'text_to_speech' %}">voice</a></li>
+                    <li><a href="/change-password/">Đổi mật khẩu</a></li>
+                    <li><a href="{% url 'logout' %}">Đăng xuất</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Đăng nhập</a></li>
+                    <li><a href="{% url 'signup' %}">Đăng ký</a></li>
+                {% endif %}
+            </ul>    
+        </div>
+        
+    </header>
+    <!-- end header -->
+    <div class="main-box container">
+        <div class="author-information">
+            <div class="author-img">
+                <img src="{% static 'assets/images/Nguyen_Nhat_Anh.jpeg' %}" class="image">
+            </div>
+            <h1>Nguyễn Nhật Ánh</h1>
+            <div class="infor">
+                <p>Nguyễn Nhật Ánh là một trong những nhà văn tiêu biểu của Việt Nam, đặc biệt nổi tiếng với những tác phẩm viết về tuổi thơ, tình bạn và tình yêu tuổi học trò. Ông sinh ngày 7 tháng 5 năm 1955 tại Quảng Nam và bắt đầu sự nghiệp văn chương từ những năm 1980. Với phong cách viết nhẹ nhàng, hồn nhiên nhưng đầy sâu sắc, ông đã trở thành một tác giả gắn bó với nhiều thế hệ độc giả. Những tác phẩm của ông không chỉ phản ánh chân thực những kỷ niệm đẹp của tuổi học trò mà còn mang đến những bài học ý nghĩa về cuộc sống, tình cảm gia đình và giá trị của tình bạn.</p>
+                <p>Trong suốt sự nghiệp của mình, Nguyễn Nhật Ánh đã sáng tác rất nhiều tác phẩm thành công, điển hình như Kính vạn hoa, Cho tôi xin một vé đi tuổi thơ, Mắt biếc, Cô gái đến từ hôm qua và Tôi thấy hoa vàng trên cỏ xanh. Mỗi câu chuyện ông viết đều mang đậm dấu ấn của một thời tuổi trẻ trong sáng, hồn nhiên nhưng cũng đầy những nỗi niềm suy tư. Đặc biệt, tác phẩm Cho tôi xin một vé đi tuổi thơ đã đạt nhiều giải thưởng lớn và được dịch ra nhiều ngôn ngữ, giúp văn học Việt Nam đến gần hơn với bạn đọc quốc tế. Ngoài ra, nhiều tác phẩm của ông cũng đã được chuyển thể thành phim và nhận được sự yêu thích của đông đảo khán giả.</p>
+                <p>Điều làm nên sức hút trong văn chương của Nguyễn Nhật Ánh chính là cách ông kể chuyện đầy chân thực, gần gũi nhưng cũng không kém phần sâu sắc. Ông viết về những điều bình dị trong cuộc sống, từ những trò nghịch ngợm của tuổi học trò đến những rung động đầu đời, nhưng tất cả đều thấm đẫm tình cảm và sự hoài niệm. Độc giả khi đọc sách của ông không chỉ tìm thấy chính mình trong từng trang viết mà còn có thể cảm nhận được hơi thở của một thời thơ ấu trong trẻo mà ai cũng từng trải qua. Chính vì vậy, Nguyễn Nhật Ánh được xem là “nhà văn của tuổi thơ”, người đã dành cả cuộc đời để lưu giữ những ký ức đẹp qua từng con chữ, giúp bao thế hệ độc giả tìm lại những khoảnh khắc vô tư, hồn nhiên mà đôi khi trong guồng quay của cuộc sống, họ đã lãng quên.</p>
+            </div>
+        </div>
+        <div class="main_sidebar">
+            <h2>Những tác phẩm nổi bật</h2>
+            <a href="#">
+                <div class="sidebar-item">
+                    <div class="item-image">
+                        <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alt="Sách" class="image">
+                    </div>
+                    <div class="item-information">
+                        <h1 class="book-name">
+                            Yêu những điều không hoàn hảo
+                        </h1>
+                        <h3 class="author">
+                            Hae Min
+                        </h3>
+                        <div class="time-item">
+                            <i class="fa-regular fa-clock"></i>
+                            <span class="time">1 giờ, 46 phút</span>
+                        </div>
+                    </div>
+                    <div class="trending-sidebar">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                        <i class="fa-solid fa-circle-play"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const userImage = document.getElementById("user-image");
+            const dropdownMenu = document.getElementById("dropdown-menu");
+    
+            // Hiển thị / ẩn menu khi click vào ảnh
+            userImage.addEventListener("click", function() {
+                dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+            });
+    
+            // Ẩn menu nếu click ra ngoài
+            document.addEventListener("click", function(event) {
+                if (!userImage.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.style.display = "none";
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const barIcon = document.getElementById("bar-icon");
+            const dropdownMenuBar = document.getElementById("dropdown-menu-bar");
+    
+            // Hiển thị / ẩn menu khi click vào ảnh
+            barIcon.addEventListener("click", function() {
+                dropdownMenuBar.style.display = dropdownMenuBar.style.display === "block" ? "none" : "block";
+            });
+    
+            // Ẩn menu nếu click ra ngoài
+            document.addEventListener("click", function(event) {
+                if (!barIcon.contains(event.target) && !dropdownMenuBar.contains(event.target)) {
+                    dropdownMenuBar.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+    
+</body>
+</html>

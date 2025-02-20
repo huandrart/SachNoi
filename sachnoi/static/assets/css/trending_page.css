@@ -1,0 +1,157 @@
+.container-one {
+    margin-top: 120px;  
+}
+
+.container-one .book-list{
+    margin-top: 20px;
+    display: flex;
+}
+
+.book-list .book-item {
+    width: calc(100% / 5 - 60px);
+    aspect-ratio: 2 / 3;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.book-list .book-item .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+.book-item {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.book-item:hover {
+    transform: scale(1.05);
+}
+
+.container-two {
+    margin-top: 70px;
+}
+
+.author-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px 80px; 
+}
+
+.author-list .author-item {
+    height: 70px;
+    border: 2px solid var(--color-four);
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.author-list .author-item .order {
+    margin-left: 20px;
+    font-weight: 600;
+}
+.author-list .author-item .author-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    overflow: hidden;
+    margin: 10px;
+    margin-left: 20px;
+}
+
+.author-list .author-item .author-image .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-list .author-item .author-name {
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+/* .author-item {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+} */
+
+.author-item:hover {
+    transform: translateY(-5px); /* Nổi lên nhẹ */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+}
+
+
+@media (max-width: 1028px) {
+    .book-list .book-item {
+        width: calc(100% / 5 - 30px);
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 830px) {
+    .author-list {
+        gap: 10px 30px; 
+    }
+    .author-list .author-item {
+        height: 50px;
+        margin: 10px;
+    }
+    .author-list .author-item .author-image {
+        width: 38px;
+        height: 38px;
+        margin-left: 10px;
+    }
+    .author-list .author-item .order {
+        margin-left: 10px;
+        font-weight: 500;
+        font-size: 14px;
+    } 
+    .author-list .author-item .author-name {
+        margin-left: 0px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    .book-list .book-item {
+        width: calc(100% / 5 - 10px);
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+@media (max-width: 640px) {
+    .container-one {
+        margin-top: 75px;
+    }
+    .container-one h1 {
+        font-size: 16px;
+    }
+    .container-one .book-list{
+        flex-wrap: wrap;
+    }
+    .book-list .book-item {
+        width: calc(100% / 3 - 20px);
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+    }
+    .container-two {
+        margin-top: 20px;
+    }
+    .container-two .author-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .author-list .author-item {
+        width: 100%;
+    }
+}

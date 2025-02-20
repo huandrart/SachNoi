@@ -208,5 +208,44 @@
             });
         });
     </script>
+    <script>
+        // Lưu sách vào LocalStorage
+        function saveBookOffline(bookId, bookTitle, bookAuthor) {
+            let savedBooks = JSON.parse(localStorage.getItem('savedBooks')) || [];
+            // Kiểm tra xem sách đã được lưu chưa
+            if (!savedBooks.some(book => book.id === bookId)) {
+                savedBooks.push({ id: bookId, title: bookTitle, author: bookAuthor });
+                localStorage.setItem('savedBooks', JSON.stringify(savedBooks));
+                alert('Sách đã được lưu để đọc offline!');
+            } else {
+                alert('Sách này đã được lưu trước đó!');
+            }
+        }
+    
+        // Hiển thị danh sách sách đã lưu
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedBooks = JSON.parse(localStorage.getItem('savedBooks')) || [];
+            const container = document.querySelector(".content");
+    
+            if (savedBooks.length === 0) {
+                container.innerHTML = "<p>Chưa có sách nào được lưu.</p>";
+            } else {
+                savedBooks.forEach(book => {
+                    const bookItem = `
+                        <a href="#">
+                            <div class="book-items">
+                                <div class="book-image">
+                                    <img src="{% static 'assets/images/default_book_image.webp' %}" alt="Sách">
+                                </div>
+                                <h2>${book.title}</h2>
+                                <h3>${book.author}</h3>
+                            </div>
+                        </a>
+                    `;
+                    container.innerHTML += bookItem;
+                });
+            }
+        });
+    </script>
 </body>
 </html>

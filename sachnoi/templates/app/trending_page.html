@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="{% static 'assets/images/icon.webp' %}" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/trending_page.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+    <!-- header -->
+    
+    <header class="header">
+        {% comment %} <div class="search-container">
+            <input type="text" placeholder="Tìm kiếm" class="search-input">
+            <button class="search-button">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div> {% endcomment %}
+
+        {% comment %} <div class="search-container">
+            <form method="GET" action="{% url 'search_results' %}" class="search-form">
+                <input type="text" name="q" placeholder="Tìm kiếm" class="search-input" required>
+                <button type="submit" class="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div> {% endcomment %}
+        
+
+        <div class="header-content">
+            <ul>    
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'discover' %}">Khám phá</a></li>
+                <li><a href="{% url 'author' %}">Tác giả</a></li>
+                <li><a href="{% url 'category' %}">Thể loại</a></li>  
+            </ul>
+        </div>
+
+        <div class="bar">
+            <i class="fa-solid fa-bars" id="bar-icon"></i>
+            <ul class="dropdown-menu-bar" id="dropdown-menu-bar">
+                <li><a href="{% url 'index' %}">Trang chủ</a></li>
+                <li><a href="{% url 'discover' %}">Khám phá</a></li>
+                <li><a href="{% url 'author' %}">Tác giả</a></li>
+                <li><a href="{% url 'category' %}">Thể loại</a></li>
+            </ul>
+        </div>
+
+        <div class="personal-account">
+            <img src="{% static 'assets/images/Flag_of_Vietnam.svg.webp' %}" 
+                 alt="personal image" 
+                 class="image" 
+                 id="user-image">
+            <ul class="dropdown-menu" id="dropdown-menu">
+                {% if user.is_authenticated %}
+                    <li><a href="/profile/">Thông tin người dùng</a></li>
+                    <li><a href="/favorite/">Danh sách yêu thích</a></li>
+                    <li><a href="{% url 'text_to_speech' %}">voice</a></li>
+                    <li><a href="/change-password/">Đổi mật khẩu</a></li>
+                    <li><a href="{% url 'logout' %}">Đăng xuất</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Đăng nhập</a></li>
+                    <li><a href="{% url 'signup' %}">Đăng ký</a></li>
+                {% endif %}
+            </ul>    
+        </div>
+        
+    </header>
+    <!-- end header -->
+
+    {% comment %} section-one {% endcomment %}
+    <div class="container container-one">
+        <h1>Thịnh hành hôm nay</h1>
+        <ul>
+            {% for trend in trending_today %}
+                <li>{{ trend.book.title }} - {{ trend.views }} lượt xem</li>
+            {% endfor %}
+        </ul>
+
+        <h1>Thịnh hành tuần này</h1>
+        <ul>
+            {% for trend in trending_week %}
+                <li>{{ trend.book.title }} - {{ trend.views }} lượt xem</li>
+            {% endfor %}
+        </ul>
+
+        <h1>Thịnh hành tháng này</h1>
+        <ul>
+            {% for trend in trending_month %}
+                <li>{{ trend.book.title }} - {{ trend.views }} lượt xem</li>
+            {% endfor %}
+        </ul>
+        <h1>Top sách trong tuần</h1>
+        <div class="book-list">
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/chu-nghia-khac-ky-_tb-2023__bia-1.webp' %}" class="image" alt="sach">
+            </a>
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/thien_tai_ben_trai_ke_dien_ben_phai.jpg' %}" class="image" alt="sach">
+            </a>
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/harry_potter.jpg' %}" class="image" alt="sach">
+            </a>
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/tron-len-mai-nha-de-khoc.jpg' %}" class="image" alt="sach">
+            </a>
+            <a href="#" class="book-item">
+                <img src="{% static 'assets/images/think-and-grow-rich.webp' %}" class="image" alt="sach">
+            </a> 
+        </div>
+    </div>
+    {% comment %} end section-one {% endcomment %}
+
+    {% comment %} section-two {% endcomment %}
+    <div class="container container-two">
+        <h1>Tác giả được nghe nhiều nhất</h1>
+        <div class="author-list">
+            <a href="#" class="author-item">
+                <div class="order">1</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/Nguyen_Nhat_Anh.jpeg' %}" alt="tac-gia" class="image">
+                </div>
+                <div class="author-name">Nguyễn Nhật Ánh</div>
+            </a>
+            <a href="#" class="author-item">
+                <div class="order">2</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/J.K.Rowling.jpeg' %}" alt="tac-gia" class="image">
+                </div>
+                <div class="author-name">J.K.Rowling</div>
+            </a>
+            <a href="#" class="author-item">
+                <div class="order">3</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/Paulo_Coelho.webp' %}" alt="tac-gia" class="image">
+                </div>
+                <div class="author-name">Paulo Coelho</div>
+            </a>
+            <a href="#" class="author-item">
+                <div class="order">4</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/Phan_Van_Truong.jpeg' %}" alt="tac-gia" class="image">
+                </div>
+                <div class="author-name">Phan Văn Trường</div>
+            </a>
+            <a href="#" class="author-item">
+                <div class="order">5</div>
+                <div class="author-image">
+                    <img src="{% static 'assets/images/Tran_Dang_Khoa.jpg' %}" alt="tac-gia" class="image">
+                </div>
+                <div class="author-name">Trần Đăng Khoa</div>
+            </a>
+        </div>
+    </div>
+    {% comment %} end section-two {% endcomment %}
+    <footer> 
+        <div  class="footer-content">
+            <div class="quote">
+                <p>"Bạn định đợi tới bao giờ
+                    <br>
+                    mới mong cầu điều tốt đẹp nhất cho bản thân?"
+                </p> 
+            </div>
+            <div class="member">
+                <h3>Đội ngũ xây dựng và phát triển web:</h3>
+                <ul>
+                    <li>Mentor: Đinh Quốc Đại</li>
+                    <li>Nguyễn Đăng Huân</li>
+                    <li>Đỗ Sỹ Việt</li>
+                    <li>Vũ Mạnh Hiếu</li>
+                    <li>Võ Minh Trí</li>
+                    <li>Vũ Thị Thu Duyên</li>
+                </ul>
+            </div>
+            <div class="contact">
+                <p>Chúng tôi luôn sẵn sàng lắng nghe ý kiến của các bạn</p>
+                <p>Liên hệ với chúng tôi:</p>
+                <ul>
+                    <li>Email: huannguen1232004@gmail.com</a></li>
+                    <li>Điện thoại: +84 865 961 383</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="end-footer"> 
+            <p> 
+                Một trang web thành công không chỉ là công trình của đội ngũ phát triển. 
+                <br>Vì vậy, cho phép chúng tôi gửi lời cảm ơn đến các bạn đọc, các thính giả đã góp phần làm nên thành công của chúng tôi.
+            </p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const userImage = document.getElementById("user-image");
+            const dropdownMenu = document.getElementById("dropdown-menu");
+    
+            // Hiển thị / ẩn menu khi click vào ảnh
+            userImage.addEventListener("click", function() {
+                dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+            });
+    
+            // Ẩn menu nếu click ra ngoài
+            document.addEventListener("click", function(event) {
+                if (!userImage.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.style.display = "none";
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const barIcon = document.getElementById("bar-icon");
+            const dropdownMenuBar = document.getElementById("dropdown-menu-bar");
+    
+            // Hiển thị / ẩn menu khi click vào ảnh
+            barIcon.addEventListener("click", function() {
+                dropdownMenuBar.style.display = dropdownMenuBar.style.display === "block" ? "none" : "block";
+            });
+    
+            // Ẩn menu nếu click ra ngoài
+            document.addEventListener("click", function(event) {
+                if (!barIcon.contains(event.target) && !dropdownMenuBar.contains(event.target)) {
+                    dropdownMenuBar.style.display = "none";
+                }
+            });
+        });
+    </script>
+    
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".audio-duration").forEach(span => {
+            let audio = new Audio(span.dataset.src);
+            audio.addEventListener("loadedmetadata", () => {
+                let duration = Math.round(audio.duration);
+                // giải thích tẹo nha cái duration là a dùng để lấy thời gian trong file sách tương ứng ở trên database á
+                let minutes = Math.floor(duration / 60);
+                let seconds = duration % 60;
+                span.textContent = ` ${minutes}:${seconds.toString().padStart(2, "0")}`;
+            });
+        });
+    });
+</script>
+
+
+    
+</body>
+</html>
