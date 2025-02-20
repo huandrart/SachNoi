@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}" />
 
     <link rel="stylesheet" href="{% static 'assets/css/styles_detail.css' %}">
+    <script src="{% static 'assets/js/fav.js' %}"></script>
     <style>
         
 .chat-container {
@@ -197,6 +198,9 @@
                         <i class="fa-regular fa-bookmark  bookmark-off"></i>
                         <i class="fa-solid fa-bookmark bookmark-on"></i>
                     </label>
+                    <button onclick="saveBookOffline({{ book.id }}, '{{ book.title }}', '{{ book.author.name }}')">
+                        Lưu sách
+                    </button>
                 </div>
             </div>
             <div class="book-image">
@@ -450,5 +454,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     </script>
+    
 </body>
 </html>

@@ -22,4 +22,6 @@ urlpatterns = [
     path('text_to_speech/', views.text_to_speech_view, name='text_to_speech'),
     path('author_detail/', views.author_detail, name='author_detail'),
     path('trending_page/', views.trending_page, name='trending_page'),
+    path('add-to-favorite/<int:pk>/', views.add_to_favorite, name='add_to_favorite'),
+    path('remove-from-favorite/<int:pk>/', views.remove_from_favorite, name='remove_from_favorite'),
 ]

@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse , JsonResponse
 from django.contrib import messages
 from gtts import gTTS
+from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from sachnoi.models import  Books , Authors
 from .forms import TextToSpeechForm
@@ -165,3 +166,54 @@ def text_to_speech_view(request):
     else:
         form = TextToSpeechForm()
     return render(request, 'app/text_to_speech.html', {'form': form})
+
+# thịnh hành
+
+def book_detail(request, pk):
+    book = get_object_or_404(Books, pk=pk)
+    
+    # Cập nhật lượt xem
+    today = datetime.now().date()
+    trending, created = Trending.objects.get_or_create(book=book, date=today)
+    trending.views += 1
+    trending.save()
+
+    # Phần còn lại xử lý chi tiết sách
+    return render(request, 'app/detail.html', {'book': book})
+
+def trending_page(request):
+    today = datetime.now().date()
+
+    # Sách thịnh hành theo ngày
+    trending_today = Trending.objects.filter(date=today).order_by('-views')[:10]
+
+    # Sách thịnh hành theo tuần
+    week_start = today - timedelta(days=7)
+    trending_week = Trending.objects.filter(date__range=[week_start, today]).order_by('-views')[:10]
+
+    # Sách thịnh hành theo tháng
+    month_start = today.replace(day=1)
+    trending_month = Trending.objects.filter(date__range=[month_start, today]).order_by('-views')[:10]
+
+    return render(request, 'app/trending_page.html', {
+        'trending_today': trending_today,
+        'trending_week': trending_week,
+        'trending_month': trending_month,
+    })
+
+def add_to_favorite(request, pk):
+    if request.user.is_authenticated:
+        book = get_object_or_404(Books, pk=pk)
+        favorite, created = Favorite.objects.get_or_create(user=request.user, book=book)
+        if created:
+            return JsonResponse({'status': 'added'})
+        else:
+            return JsonResponse({'status': 'already_added'})
+    return JsonResponse({'status': 'not_authenticated'})
+
+def remove_from_favorite(request, pk):
+    if request.user.is_authenticated:
+        book = get_object_or_404(Books, pk=pk)
+        Favorite.objects.filter(user=request.user, book=book).delete()
+        return JsonResponse({'status': 'removed'})
+    return JsonResponse({'status': 'not_authenticated'})

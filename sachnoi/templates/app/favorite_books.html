@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/styles_favorite_books.css' %}"/>
+    <script src="{% static 'assets/js/fav.js' %}"></script>
+
 </head>
 <body>
     <!-- header -->
@@ -84,6 +86,15 @@
         </div>
         <div class="container-one">
             <div class="content">
+                <h1>Danh sách yêu thích</h1>
+                <ul>
+                    {% for favorite in favorites %}
+                        <li>
+                            {{ favorite.book.title }}
+                            <button onclick="removeFromFavorite({{ favorite.book.id }})">Xóa</button>
+                        </li>
+                    {% endfor %}
+                </ul>
                 <a href="#">
                     <div class="book-items">
                         <div class="book-image">
