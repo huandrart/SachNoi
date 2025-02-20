@@ -11,7 +11,7 @@ from io import BytesIO
 from . models import *
 import json
 from django.contrib.auth.forms import UserCreationForm
-
+from .chatbot_main import ask_bloom
 
 # View page 
 def index(request):
@@ -31,7 +31,7 @@ def book_detail(request, pk):
         # Kiểm tra header X-Requested-With để xác định yêu cầu AJAX
         user_message = request.POST.get('user_message', '')
         if user_message:
-            response = vodka(book.text_content, user_message)
+            response = ask_bloom(book.text_content, user_message)
             print("Bot Response:", response)
             return JsonResponse({'response': response})  # Trả về JSON
 
