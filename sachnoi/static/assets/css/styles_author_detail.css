@@ -23,7 +23,7 @@
 
 .main-box .author-information .author-img {
     width: 90%;
-    height: auto;
+    aspect-ratio: 2;
     overflow: hidden;
     border-radius: 10px;
 }
@@ -80,6 +80,7 @@
     margin-top: 10px;
     margin-bottom: 0px;
     font-size: 16px;
+    width: 80%;
 }
 
 .main-box .main_sidebar .sidebar-item .item-information .time-item {
