@@ -1,5 +1,5 @@
 from django.shortcuts import render ,redirect , get_object_or_404
-from django.contrib.auth import authenticate,login,logout, get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import HttpResponse , JsonResponse
 from django.contrib import messages
 from gtts import gTTS
@@ -37,23 +37,35 @@ def index(request):
 #     """
 #     books = Books.objects.all()  # Lấy tất cả sách từ cơ sở dữ liệu
 #     return render(request, 'app/index.html', {'books': books})
+# def book_detail(request, pk):
+#     """
+#     View để hiển thị chi tiết một cuốn sách và xử lý input người dùng bằng AJAX.
+#     """
+#     b = Books.objects.all()
+#     book = get_object_or_404(Books, pk=pk)
+
+#     if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#         # Kiểm tra header X-Requested-With để xác định yêu cầu AJAX
+#         user_message = request.POST.get('user_message', '')
+#         if user_message:
+#             response = ask_bloom(book.text_content, user_message)
+#             print("Bot Response:", response)
+#             return JsonResponse({'response': response})  # Trả về JSON
+
+#     # Trả về trang HTML bình thường nếu là yêu cầu GET
+#     return render(request, 'app/detail.html', {'book': book, 'b': b})
+
+
 def book_detail(request, pk):
-    """
-    View để hiển thị chi tiết một cuốn sách và xử lý input người dùng bằng AJAX.
-    """
-    b = Books.objects.all()
     book = get_object_or_404(Books, pk=pk)
-
-    if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        # Kiểm tra header X-Requested-With để xác định yêu cầu AJAX
-        user_message = request.POST.get('user_message', '')
-        if user_message:
-            response = ask_bloom(book.text_content, user_message)
-            print("Bot Response:", response)
-            return JsonResponse({'response': response})  # Trả về JSON
-
-    # Trả về trang HTML bình thường nếu là yêu cầu GET
-    return render(request, 'app/detail.html', {'book': book, 'b': b})
+    
+    # Tăng lượt xem trong bảng Trending
+    today = datetime.now().date()
+    trending_entry, created = Trending.objects.get_or_create(book=book, date=today)
+    trending_entry.views += 1
+    trending_entry.save()
+    
+    return render(request, 'app/detail.html', {'book': book})
 def author(request):
     author = Authors.objects.all().distinct()
     return render(request,'app/author.html',{'author':author})
@@ -194,19 +206,36 @@ def text_to_speech_view(request):
     return render(request, 'app/text_to_speech.html', {'form': form})
 
 
+
 def trending_page(request):
     today = datetime.now().date()
 
-    # Sách thịnh hành theo ngày
+    # Lấy danh sách sách thịnh hành hôm nay
     trending_today = Trending.objects.filter(date=today).order_by('-views')[:10]
 
-    # Sách thịnh hành theo tuần
+    # Lấy sách thịnh hành theo tuần
     week_start = today - timedelta(days=7)
-    trending_week = Trending.objects.filter(date__range=[week_start, today]).order_by('-views')[:10]
+    trending_week_raw = Trending.objects.filter(date__range=[week_start, today]).order_by('-views')
+    trending_week = []
+    seen_books = set()
+    for trend in trending_week_raw:
+        if trend.book.id not in seen_books:
+            trending_week.append(trend)
+            seen_books.add(trend.book.id)
+        if len(trending_week) >= 10:  # Giới hạn số lượng sách hiển thị
+            break
 
-    # Sách thịnh hành theo tháng
+    # Lấy sách thịnh hành theo tháng
     month_start = today.replace(day=1)
-    trending_month = Trending.objects.filter(date__range=[month_start, today]).order_by('-views')[:10]
+    trending_month_raw = Trending.objects.filter(date__range=[month_start, today]).order_by('-views')
+    trending_month = []
+    seen_books = set()
+    for trend in trending_month_raw:
+        if trend.book.id not in seen_books:
+            trending_month.append(trend)
+            seen_books.add(trend.book.id)
+        if len(trending_month) >= 10:  # Giới hạn số lượng sách hiển thị
+            break
 
     return render(request, 'app/trending_page.html', {
         'trending_today': trending_today,

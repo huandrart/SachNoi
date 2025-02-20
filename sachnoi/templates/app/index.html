@@ -183,11 +183,11 @@
                             </div>
                         </div>
                     </a>
-                    {% for trend in trending_today %}
+                    {% for trend in trending_today|slice:":3" %}
                     <a href="{{ trend.book.get_absolute_url }}">
                         <div class="trending-item">
                             <div class="item-image">
-                                <img src="{{ trend.book.cover_image }}" alt="Sách" class="image">
+                                <img src="{{ trend.book.cover_image }}" alt="{{ trend.book.title }}" class="image">
                             </div>
                             <div class="item-information">
                                 <h1 class="book-name">{{ trend.book.title }}</h1>
