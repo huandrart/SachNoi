@@ -25,13 +25,18 @@ def index(request):
     """
     books = Books.objects.all()  # Lấy tất cả sách
     today = datetime.now().date()
+    start_of_week = today - timedelta(days=today.weekday())  # Thứ Hai
+    end_of_week = start_of_week + timedelta(days=6)  # Chủ Nhật
+
+    # Lấy sách thịnh hành trong tuần hiện tại
+    trending_this_week = Trending.objects.filter(date__range=(start_of_week, end_of_week)).order_by('-views')[:5]
 
     # Lấy sách thịnh hành theo ngày
     trending_today = Trending.objects.filter(date=today).order_by('-views')[:5]
 
     return render(request, 'app/index.html', {
         'books': books,
-        'trending_today': trending_today,
+        'trending_this_week': trending_this_week,
     })
 def book_detail(request, pk):
     """

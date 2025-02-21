@@ -137,53 +137,8 @@
                     </a>
                 </div>
                 <div class="trending-list">
-                    <a href="#">
-                        <div class="trending-item">
-                            <div class="item-image">
-                                <img src="{% static 'assets/images/yeu_nhung_dieu_khong_hoan_hao_1_2018_09_12_11_14_40 (1).webp' %}" alt="Sách" class="image">
-                            </div>
-                            <div class="item-information">
-                                <h1 class="book-name">
-                                    Yêu những điều không hoàn hảo
-                                </h1>
-                                <h3 class="author">
-                                    Hae Min
-                                </h3>
-                                <div class="time-item">
-                                    <i class="fa-regular fa-clock"></i>
-                                    <span class="time">1 giờ, 46 phút</span>
-                                </div>
-                            </div>
-                            <div class="trending-sidebar">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                                <i class="fa-solid fa-circle-play"></i>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="trending-item">
-                            <div class="item-image">
-                                <img src="{% static 'assets/images/chu-nghia-khac-ky-_tb-2023__bia-1.webp' %}" alt="Sách" class="image">
-                            </div>
-                            <div class="item-information">
-                                <h1 class="book-name">
-                                    Chủ nghĩa khắc kỉ
-                                </h1>
-                                <h3 class="author">
-                                    William B.Irvine
-                                </h3>
-                                <div class="time-item">
-                                    <i class="fa-regular fa-clock"></i>
-                                    <span class="time">2 giờ, 35 phút</span>
-                                </div>
-                            </div>
-                            <div class="trending-sidebar">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                                <i class="fa-solid fa-circle-play"></i>
-                            </div>
-                        </div>
-                    </a>
-                    {% for trend in trending_today|slice:":3" %}
+                    
+                    {% for trend in trending_this_week|slice:":3" %}
                     <a href="{{ trend.book.get_absolute_url }}">
                         <div class="trending-item">
                             <div class="item-image">
