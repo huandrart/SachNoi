@@ -23,21 +23,16 @@
     <!-- header -->
     
     <header class="header">
-        {% comment %} <div class="search-container">
-            <input type="text" placeholder="Tìm kiếm" class="search-input">
-            <button class="search-button">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div> {% endcomment %}
+        
 
-        {% comment %} <div class="search-container">
+        <div class="search-container">
             <form method="GET" action="{% url 'search_results' %}" class="search-form">
                 <input type="text" name="q" placeholder="Tìm kiếm" class="search-input" required>
                 <button type="submit" class="search-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-        </div> {% endcomment %}
+        </div>
         
 
         <div class="header-content">
@@ -188,6 +183,23 @@
                             </div>
                         </div>
                     </a>
+                    {% for trend in trending_today|slice:":3" %}
+                    <a href="{{ trend.book.get_absolute_url }}">
+                        <div class="trending-item">
+                            <div class="item-image">
+                                <img src="{{ trend.book.cover_image }}" alt="{{ trend.book.title }}" class="image">
+                            </div>
+                            <div class="item-information">
+                                <h1 class="book-name">{{ trend.book.title }}</h1>
+                                <h3 class="author">{{ trend.book.author.name }}</h3>
+                                <div class="time-item">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <span class="time">Lượt xem: {{ trend.views }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>

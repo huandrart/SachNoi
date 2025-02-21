@@ -15,7 +15,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
+    <style>
+        h1 {
+             margin: 50px 0 26px;
+            }
+    </style>
 
 
 </head>
@@ -23,21 +27,16 @@
     <!-- header -->
     
     <header class="header">
-        {% comment %} <div class="search-container">
-            <input type="text" placeholder="Tìm kiếm" class="search-input">
-            <button class="search-button">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div> {% endcomment %}
+        
 
-        {% comment %} <div class="search-container">
+        <div class="search-container">
             <form method="GET" action="{% url 'search_results' %}" class="search-form">
                 <input type="text" name="q" placeholder="Tìm kiếm" class="search-input" required>
                 <button type="submit" class="search-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-        </div> {% endcomment %}
+        </div>
         
 
         <div class="header-content">
@@ -82,6 +81,59 @@
     <!-- end header -->
 
     {% comment %} section-one {% endcomment %}
+    
+    <div class="container container-one">
+        <h1>Thịnh hành hôm nay</h1>
+        <div class="book-list">
+            {% for trend in trending_today|slice:":10" %}
+            <div class="book-item">
+                <a href="{{ trend.book.get_absolute_url }}">
+                    <div class="image-container">
+                        <img src="{{ trend.book.cover_image }}" alt="{{ trend.book.title }}" class="image">
+                        <div class="views-icon">
+                            {{trend.book.title}}
+                            <i class="fa-solid fa-eye"></i> {{ trend.views }}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h1>Thịnh hành tuần này</h1>
+        <div class="book-list">
+            {% for trend in trending_week %}
+            <div class="book-item">
+                <a href="{{ trend.book.get_absolute_url }}">
+                    <div class="image-container">
+                        <img src="{{ trend.book.cover_image }}" alt="{{ trend.book.title }}" class="image">
+                        <div class="views-icon">
+                            {{trend.book.title}}
+                            <i class="fa-solid fa-eye"></i> {{ trend.views }}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    
+        <h1>Thịnh hành tháng này</h1>
+        <div class="book-list">
+            {% for trend in trending_month %}
+            <div class="book-item">
+                <a href="{{ trend.book.get_absolute_url }}">
+                    <div class="image-container">
+                        <img src="{{ trend.book.cover_image }}" alt="{{ trend.book.title }}" class="image">
+                        <div class="views-icon">
+                            {{trend.book.title}}
+                            <i class="fa-solid fa-eye"></i> {{ trend.views }}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     <div class="container container-one">
         <h1>Top sách trong tuần</h1>
         <div class="book-list">
